@@ -1,0 +1,8 @@
+client, Default Client
+project, Default Project
+bpm, 120
+template, path/to/template
+structure, path/to/structure
+destination, path/to/destination
+
+
