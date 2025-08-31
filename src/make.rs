@@ -2,7 +2,7 @@ pub struct ProjectOptions<'a> {
 	pub client: Option<&'a str>,
 	pub project: Option<&'a str>,
 	pub bpm: Option<u32>,
-	pub template: &'a str,
+	pub template: Option<&'a str>,
 	pub structure: Option<&'a str>,
 	pub destin: &'a str,
 }
@@ -18,6 +18,9 @@ pub fn create_project(opts: ProjectOptions) {
 
 	if let Some(bpm) = opts.bpm {
 		println!("BPM: {}", bpm);
+	}
+	if let Some(template) = opts.template {
+		println!("Template: {}", bpm);
 	}
 
 	println!("Template: {}", opts.template);

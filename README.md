@@ -34,6 +34,7 @@ Optional; defaults to 120 BPM if omitted.
     
 **-t** : Project template    
 Absolute path to a Reaper template file (.RPP).    
+Optional; defaults to an empty project if omitted.    
 `-p 'Users/user/Desktop/music/mixing-projects/templates/mixing.RPP'`    
     
 **-s** : Structure    

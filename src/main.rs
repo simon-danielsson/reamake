@@ -59,9 +59,6 @@ fn main() {
 	}
 
 	// No subcommand -> run main project creation
-	let template = matches
-		.get_one::<String>("template")
-		.expect("Template required");
 	let destin = matches
 		.get_one::<String>("destin")
 		.expect("Destination required");
@@ -72,7 +69,7 @@ fn main() {
 		bpm: matches
 			.get_one::<String>("bpm")
 			.and_then(|s| s.parse::<u32>().ok()),
-		template,
+		template: matches.get_one::<String>("template").map(|s| s.as_str()),
 		structure: matches.get_one::<String>("structure").map(|s| s.as_str()),
 		destin,
 	});

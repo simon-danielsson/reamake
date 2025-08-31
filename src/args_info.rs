@@ -31,7 +31,7 @@ pub fn args_info() -> Vec<(char, &'static str)> {
 	// template file [4]
 	helper.add(
 		't',
-                "Sets the absolute path to a reaper project template file (.RPP).\nExample usage: -p 'Users/user/Desktop/music/mixing-projects/templates/mixing.RPP'\n",
+                "Sets the absolute path to a reaper project template file (.RPP).\n\nOptional; defaults to an empty project if omitted.\nExample usage: -p 'Users/user/Desktop/music/mixing-projects/templates/mixing.RPP'\n",
 	);
 
 	// structure file [5]

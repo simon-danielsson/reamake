@@ -17,7 +17,7 @@ pub fn run(matches: &ArgMatches) {
 			client: Some(rows_vec[0].1),
 			project: Some(rows_vec[1].1),
 			bpm: Some(bpm),
-			template: rows_vec[3].1,
+			template: Some(rows_vec[3].1),
 			structure: Some(rows_vec[4].1),
 			destin: rows_vec[5].1,
 		},
