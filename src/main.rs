@@ -67,14 +67,14 @@ fn main() {
 		.get_one::<String>("destin")
 		.expect("Destination required");
 
-	// make::create_project(make::ProjectOptions {
-	// client: matches.get_one::<String>("client").map(|s| s.as_str()),
-	// project: matches.get_one::<String>("project").map(|s| s.as_str()),
-	// bpm: matches
-	// .get_one::<String>("bpm")
-	// .and_then(|s| s.parse::<u32>().ok()),
-	// template: matches.get_one::<String>("template").map(|s| s.as_str()),
-	// structure: matches.get_one::<String>("structure").map(|s| s.as_str()),
-	// destin,
-	// });
+	make::make(make::ProjectOptions {
+		client_name: matches.get_one::<String>("client").map(|s| s).cloned(),
+		project_name: matches.get_one::<String>("project").map(|s| s).cloned(),
+		bpm: matches
+			.get_one::<String>("bpm")
+			.and_then(|s| s.parse::<u32>().ok()),
+		rpp_templ: matches.get_one::<String>("template").map(|s| s).cloned(),
+		yaml_templ: matches.get_one::<String>("structure").map(|s| s).cloned(),
+		dest_dir: destin.to_string(),
+	});
 }

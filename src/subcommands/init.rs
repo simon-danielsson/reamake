@@ -10,11 +10,11 @@ pub fn run(matches: &ArgMatches) -> std::io::Result<()> {
 	println!("Generating init files at {}...", destination);
 
 	match add_file_to_dir(destination, "default.yaml", DEF_YAM) {
-		Ok(_) => println!("Init files added to the chosen directory!"),
+		Ok(_) => println!("default.yaml added to the chosen directory!"),
 		Err(e) => println!("Error while adding default.yaml to directory: {}", e),
 	}
 	match add_file_to_dir(destination, "default.csv", DEF_CSV) {
-		Ok(_) => println!("Init files added to the chosen directory!"),
+		Ok(_) => println!("default.csv added to the chosen directory!"),
 		Err(e) => println!("Error while adding default.csv to directory: {}", e),
 	}
 
