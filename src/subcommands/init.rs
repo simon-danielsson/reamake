@@ -5,13 +5,14 @@ use std::fs::File;
 use std::io::Write;
 use std::path::PathBuf;
 
-pub fn run(matches: &ArgMatches) {
+pub fn run(matches: &ArgMatches) -> std::io::Result<()> {
 	let destination = matches.get_one::<String>("destination").unwrap();
 	println!("Generating init files at {}...", destination);
 	match add_to_dir(destination) {
-		Ok(_) => println!("Init files were successfully added to the chosen directory!"),
-		Err(e) => println!("Error: {}", e),
+		Ok(_) => println!("Init files added to the chosen directory!"),
+		Err(e) => println!("Error while adding to directory: {}", e),
 	}
+	Ok(())
 }
 
 fn add_to_dir(destination: &String) -> std::io::Result<()> {

@@ -47,12 +47,18 @@ fn main() {
 
 	// Dispatch subcommands
 	if let Some(init_matches) = matches.subcommand_matches("init") {
-		subcommands::init::run(init_matches);
+		match subcommands::init::run(init_matches) {
+			Ok(_) => println!("Init files created successfully!"),
+			Err(e) => eprintln!("Error while creating init files: {}", e),
+		}
 		return;
 	}
 
 	if let Some(batch_matches) = matches.subcommand_matches("batch") {
-		subcommands::batch::run(batch_matches);
+		match subcommands::batch::run(batch_matches) {
+			Ok(_) => println!("Batchfile parsed successfully!"),
+			Err(e) => eprintln!("Error while parsing batchfile: {}", e),
+		}
 		return;
 	}
 
