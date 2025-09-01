@@ -1,41 +1,55 @@
+use crate::constants::DEF_BPM;
 use crate::make::{self, ProjectOptions};
 use clap::ArgMatches;
-use std::str::FromStr;
+use std::io::Read;
 
-pub fn run(matches: &ArgMatches) {
+pub fn run(matches: &ArgMatches) -> std::io::Result<()> {
 	let batchfile = matches.get_one::<String>("batchfile").unwrap();
-	let destination = matches.get_one::<String>("destination").unwrap();
+	println!("Processing batch {}", batchfile);
+	let rows_vec = parse_lines(&batchfile)?;
+	let mut projects: Vec<Vec<(String, String)>> = Vec::new();
+	for chunk in rows_vec.chunks(6) {
+		projects.push(chunk.to_vec());
+	}
+	send_to_make(projects);
+	Ok(())
+}
 
-	println!("Processing batch '{}' to '{}'", batchfile, destination);
-
-	let rows_vec = parse_lines(&batchfile);
-
-	let bpm: u32 = FromStr::from_str(rows_vec[2].1).unwrap();
-
-	let projects = vec![
-		ProjectOptions {
-			client: Some(rows_vec[0].1),
-			project: Some(rows_vec[1].1),
+fn send_to_make(projects: Vec<Vec<(String, String)>>) {
+	for chunk in projects {
+		let bpm: u32 = match chunk[2].1.parse() {
+			Ok(val) => val,
+			Err(_) => {
+				eprintln!(
+					"Invalid BPM '{}' for project '{}'. Using default BPM {}.",
+					chunk[2].1, chunk[1].1, DEF_BPM
+				);
+				DEF_BPM
+			}
+		};
+		let opts = ProjectOptions {
+			client: Some(chunk[0].1.clone()),
+			project: Some(chunk[1].1.clone()),
 			bpm: Some(bpm),
-			template: Some(rows_vec[3].1),
-			structure: Some(rows_vec[4].1),
-			destin: rows_vec[5].1,
-		},
-		{ //make this entire projects variable dynamic depending on how many rows of structures are in the given csv file},
-	];
-
-	for opts in projects {
+			template: Some(chunk[3].1.clone()),
+			structure: Some(chunk[4].1.clone()),
+			destin: chunk[5].1.clone(),
+		};
 		make::create_project(opts);
 	}
 }
 
-fn parse_lines(csv_file: &str) -> Vec<(&str, &str)> {
-	let mut rows: Vec<(&str, &str)> = Vec::new();
-	for line in csv_file.lines() {
+fn parse_lines(csv_file_path: &str) -> std::io::Result<Vec<(String, String)>> {
+	let mut contents = String::new();
+	std::fs::File::open(csv_file_path)?.read_to_string(&mut contents)?;
+	let mut rows = Vec::new();
+	for line in contents.lines() {
 		let fields: Vec<&str> = line.split(',').collect();
 		if fields.len() == 2 {
-			rows.push((fields[0].trim(), fields[1].trim()));
+			rows.push((fields[0].trim().to_string(), fields[1].trim().to_string()));
+		} else {
+			eprintln!("Warning! Malformed line: {}", line);
 		}
 	}
-	rows
+	Ok(rows)
 }

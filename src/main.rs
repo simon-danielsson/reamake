@@ -1,5 +1,6 @@
 use clap::{Arg, Command};
 pub mod args_info;
+pub mod constants;
 pub mod make;
 pub mod subcommands;
 
@@ -33,10 +34,7 @@ fn main() {
 		.subcommand(
 			Command::new("batch")
 				.about(args_info_vec[7].1)
-				.arg(Arg::new("batchfile").help("batch.csv").required(true))
-				.arg(Arg::new("destination")
-					.help("Destination folder")
-					.required(true)),
+				.arg(Arg::new("batchfile").help("batch.csv").required(true)),
 		)
 		.subcommand(
 			Command::new("init")
@@ -63,14 +61,14 @@ fn main() {
 		.get_one::<String>("destin")
 		.expect("Destination required");
 
-	make::create_project(make::ProjectOptions {
-		client: matches.get_one::<String>("client").map(|s| s.as_str()),
-		project: matches.get_one::<String>("project").map(|s| s.as_str()),
-		bpm: matches
-			.get_one::<String>("bpm")
-			.and_then(|s| s.parse::<u32>().ok()),
-		template: matches.get_one::<String>("template").map(|s| s.as_str()),
-		structure: matches.get_one::<String>("structure").map(|s| s.as_str()),
-		destin,
-	});
+	// make::create_project(make::ProjectOptions {
+	// client: matches.get_one::<String>("client").map(|s| s.as_str()),
+	// project: matches.get_one::<String>("project").map(|s| s.as_str()),
+	// bpm: matches
+	// .get_one::<String>("bpm")
+	// .and_then(|s| s.parse::<u32>().ok()),
+	// template: matches.get_one::<String>("template").map(|s| s.as_str()),
+	// structure: matches.get_one::<String>("structure").map(|s| s.as_str()),
+	// destin,
+	// });
 }

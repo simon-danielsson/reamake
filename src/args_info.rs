@@ -1,64 +1,70 @@
+use crate::constants::DEF_BPM;
+use crate::constants::RMK_VER;
+
 pub fn args_info() -> Vec<(char, &'static str)> {
-	let mut helper = Helper::new();
+	let mut info = Info::new();
 
 	let about = format!(
-		"\nreamake v{}\nCreate Reaper project structures!\nBuilt by Simon Danielsson.\nhttps://github.com/simon-danielsson/reamake",
-		env!("CARGO_PKG_VERSION")
+		"\nreamake v{}\nBuilt by Simon Danielsson.\nhttps://github.com/simon-danielsson/reamake/",
+		RMK_VER.to_string()
 	);
-	let about_static: &'static str = Box::leak(about.into_boxed_str());
+	let about_st: &'static str = Box::leak(about.into_boxed_str());
 
 	// about [0]
-	helper.add('h', about_static);
+	info.add('h', about_st);
 
 	// client [1]
-	helper.add(
+	info.add(
 		'c',
 		"Set the client name.\nOptional; defaults to a generic name if omitted.\n(All words are normalized to lower case with underscores, e.g 'cool_client.)\nExample usage: -c 'cool client'\n",
 	);
 
 	// project [2]
-	helper.add(
+	info.add(
 		'p',
 		"Set the project name.\nOptional; defaults to a generic name if omitted.\n(All words are normalized to lower case with underscores, e.g 'cool_project.)\nExample usage: -p 'cool project'\n",
 	);
 
-	// bpm [3]
-	helper.add(
-		'b',
-		"Set the bpm.\nOptional; defaults to 120 BPM if omitted.\nExample usage: -b 114\n",
+	let bpm = format!(
+		"Set the bpm.\nOptional; defaults to {} BPM if omitted.\nExample usage: -b 114\n",
+		DEF_BPM
 	);
+	let bpm_st: &'static str = Box::leak(bpm.into_boxed_str());
+
+	// bpm [3]
+	info.add('b', bpm_st);
 
 	// template file [4]
-	helper.add(
+	info.add(
 		't',
                 "Sets the absolute path to a reaper project template file (.RPP).\n\nOptional; defaults to an empty project if omitted.\nExample usage: -p 'Users/user/Desktop/music/mixing-projects/templates/mixing.RPP'\n",
 	);
 
 	// structure file [5]
-	helper.add(
+	info.add(
 		's',
                 "Sets the absolute path to a folder/file structure template (.yaml).\nOptional; defaults to a standard structure if omitted.\nExample usage: -s 'Users/user/Desktop/music/mixing-projects/templates/structure.yaml'\n",
 	);
 
 	// destination directory [6]
-	helper.add('d', "Absolute path to a destination folder.");
+	info.add('d', "Absolute path to a destination folder.");
 
 	// batch [7]
-	helper.add(
+	info.add(
 		'b',
                 "Provide all flags through a .csv file.\nCreate several structures at once using a single command. Add path to .csv, and then the destination path. \nExample: reamake batch 'Users/user/Desktop/music/mixing-projects/templates/batch.csv' 'Users/user/Desktop/music/mixing-projects'\n",
 	);
 
 	// initialized file creation [8]
-	helper.add(
+	info.add(
 		'i', "Create initialized batch.csv and structure.yaml files in chosen directory for further customization.\nExample: reamake init 'Users/user/Desktop/music/mixing-projects/templates/)\n",
         );
 
-	helper.into_vec()
+	info.into_vec()
 }
 
-struct Helper(Vec<(char, &'static str)>);
-impl Helper {
+struct Info(Vec<(char, &'static str)>);
+impl Info {
 	fn new() -> Self {
 		Self(Vec::new())
 	}

@@ -1,0 +1,18 @@
+title:
+  project:
+    - main.RPP
+  imports:
+    stems:
+    - prep.RPP
+    - prep.md
+  exports:
+    drafts:
+    final stems:
+    final stereo:
+  notes.md
+
+# IMPORTANT!
+
+# The placement of the main.RPP file will determine the place in which your reaper template project will be created.
+# Other .RPP files you add (for example the prep.RPP in this default template) will be initialized as completely blank projects.
+# You're free to create any miscellaneous files you want within the hierarchy, such as .md and .txt files.

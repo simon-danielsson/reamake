@@ -1,10 +1,10 @@
-pub struct ProjectOptions<'a> {
-	pub client: Option<&'a str>,
-	pub project: Option<&'a str>,
+pub struct ProjectOptions {
+	pub client: Option<String>,
+	pub project: Option<String>,
 	pub bpm: Option<u32>,
-	pub template: Option<&'a str>,
-	pub structure: Option<&'a str>,
-	pub destin: &'a str,
+	pub template: Option<String>,
+	pub structure: Option<String>,
+	pub destin: String,
 }
 
 pub fn create_project(opts: ProjectOptions) {
@@ -20,15 +20,14 @@ pub fn create_project(opts: ProjectOptions) {
 		println!("BPM: {}", bpm);
 	}
 	if let Some(template) = opts.template {
-		println!("Template: {}", bpm);
+		println!("Template: {}", template);
 	}
 
-	println!("Template: {}", opts.template);
 	if let Some(structure) = opts.structure {
 		println!("Structure: {}", structure);
 	}
 	println!("Destination: {}", opts.destin);
 
-	// Insert main project creation logic here
 	println!("Creating project structure...");
+	// Insert main project creation logic here
 }
