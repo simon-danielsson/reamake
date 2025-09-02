@@ -2,6 +2,7 @@ use clap::{Arg, Command};
 pub mod args_info;
 pub mod constants;
 pub mod make;
+pub mod make_modules;
 pub mod subcommands;
 
 fn main() {

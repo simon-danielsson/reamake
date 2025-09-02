@@ -1,51 +1,51 @@
 mix:
   project:
+    - notes.txt
     - main.RPP
   imports:
-    stems:
+    - stems: []
     - stem prep.RPP
     - prep.md
   exports:
-    drafts:
-    final stems:
-    stereo:
-    alt stereo:
-  notes.txt
+    - drafts: []
+    - final stems: []
+    - stereo: []
+    - alt stereo: []
 
-# =======================================
-# == HOW TO USE YAML FILES FOR REAMAKE ==
-# =======================================
+    # =======================================
+    # == HOW TO USE YAML FILES FOR REAMAKE ==
+    # =======================================
 
-# Let's learn how to format .yaml files for reamake by creating a folder structure for Metallica's Enter Sandman!
+    # Let's learn how to format .yaml files for reamake by creating a folder structure for Metallica's Enter Sandman!
 
-# == NAMING SCHEMES ==
+    # == NAMING SCHEMES ==
 
-# Every file and folder name will be normalized to snake case, e.g 'final_stems' or 'todo_list.txt'.
+    # Every file and folder name will be normalized to snake case, e.g 'final_stems' or 'todo_list.txt'.
 
-# Every file title you set in this .yaml file will interit and be appended with the project name.
-# Example 1: 'prep.md' will become 'prep_enter_sandman.md'.
-# Example 2: 'notes.txt' will become 'notes_enter_sandman.txt'.
+    # Every file title you set in this .yaml file will interit and be appended with the project name.
+    # Example 1: 'prep.md' will become 'prep_enter_sandman.md'.
+    # Example 2: 'notes.txt' will become 'notes_enter_sandman.txt'.
 
-# The name of the master folder will be appended with the project name and the client name.
-# Example: Since the name of the master folder in this .yaml file is 'mix',
-# it would be changed to 'mix_enter_sandman_metallica'.
-# The name of any child folders will not change, apart from their names being normalized to snake case as mentioned previously.
+    # The name of the master folder will be appended with the project name and the client name.
+    # Example: Since the name of the master folder in this .yaml file is 'mix',
+    # it would be changed to 'mix_enter_sandman_metallica'.
+    # The name of any child folders will not change, apart from their names being normalized to snake case as mentioned previously.
 
-# == AUTOMATION ==
+    # == AUTOMATION ==
 
-# The placement of 'main.RPP' in the folder hierarchy will determine the place in which your reaper template project will be created.
-# 'main.RPP' is only a placeholder name - a new name will be generated
-# using the following naming scheme: master folder -> client name -> project name -> date of creation.
-# Example: 'main.RPP' will become 'mix_enter_sandman_metallica_01-09-2025.RPP'
+    # The placement of 'main.RPP' in the folder hierarchy will determine the place in which your reaper template project will be created.
+    # 'main.RPP' is only a placeholder name - a new name will be generated
+    # using the following naming scheme: master folder -> client name -> project name -> date of creation.
+    # Example: 'main.RPP' will become 'mix_enter_sandman_metallica_01-09-2025.RPP'
 
-# Only one 'main.RPP' is allowed per project - reamake will throw an error if you try to add more than one.
-# (reamake will obviously also throw an error if you omit 'main.RPP' entirely from the folder hierarchy)
+    # Only one 'main.RPP' is allowed per project - reamake will throw an error if you try to add more than one.
+    # (reamake will obviously also throw an error if you omit 'main.RPP' entirely from the folder hierarchy)
 
-# Other .RPP files you add apart from 'main.RPP' (for example 'prep.RPP' in this template)
-# will be initialized as blank projects, and will follow the same naming scheme as other files that aren't 'main.RPP'.
+    # Other .RPP files you add apart from 'main.RPP' (for example 'prep.RPP' in this template)
+    # will be initialized as blank projects, and will follow the same naming scheme as other files that aren't 'main.RPP'.
 
-# 'main.RPP' as well as all the other .RPP files you add to the hierarchy will be configured with the BPM you set as an argument.
+    # 'main.RPP' as well as all the other .RPP files you add to the hierarchy will be configured with the BPM you set as an argument.
 
-# == MISC ==
+    # == MISC ==
 
-# You're free to create any other files you want within the hierarchy, such as .md or .txt files.
+    # You're free to create any other files you want within the hierarchy, such as .md or .txt files.
