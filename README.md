@@ -1,17 +1,17 @@
 
 ![logo](media/logo.png)
 
-ReaMake is a CLI application for quickly creating folder and file structures for mixing, mastering, and production projects in **Reaper**.  
+**reamake** is a CLI application built for quickly creating folder/file structures for mixing, mastering, and production projects in [**Cockos Reaper**](https://www.reaper.fm/).  
   
 Built with **Rust**, using:  
 + [clap](https://github.com/BurntSushi/clap-rs?tab=readme-ov-file) for command-line parsing  
 + [yaml-rust2](https://github.com/ethiraric/yaml-rust2) for YAML parsing  
   
 Features:  
-+ Batch creation of multiple projects at once  
-+ Customizable folder/file structures and templates  
++ Customizable folder/file structures and templates.  
++ Batch creation of multiple projects at once.  
   
-> ⚠️ Currently, ReaMake only supports **macOS**.  
+> ⚠️ Currently, reamake has only been tested on **MacOS**.  
   
 ## Usage  
   
