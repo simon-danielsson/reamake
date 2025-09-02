@@ -18,7 +18,10 @@ impl ProjectOptions {
 			"rpp_templ" => self.rpp_templ.clone().unwrap_or_default(),
 			"yaml_templ" => self.yaml_templ.clone().unwrap_or_default(),
 			"dest_dir" => self.dest_dir.clone(),
-			_ => String::new(), // unknown field
+			_ => panic!(
+				"ProjectOptions::item_as_string attempted to match an invalid field: {}",
+				field
+			),
 		}
 	}
 }
