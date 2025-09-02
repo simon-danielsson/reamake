@@ -1,7 +1,7 @@
 use crate::make_modules::file_entry::FileEntry;
 use yaml_rust2::Yaml;
 
-pub fn run(yaml_contents: String) -> Vec<FileEntry> {
+pub fn run(yaml_contents: &String) -> Vec<FileEntry> {
 	let docs = yaml_rust2::YamlLoader::load_from_str(&yaml_contents).expect("Invalid YAML");
 	let doc = &docs[0];
 	let top_level_name = if let Yaml::Hash(map) = doc {
