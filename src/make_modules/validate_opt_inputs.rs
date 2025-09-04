@@ -1,5 +1,6 @@
 use crate::constants::*;
 use crate::make::ProjectOptions;
+use progress_bar::*;
 use std::fs;
 use std::path::Path;
 
@@ -7,15 +8,30 @@ use std::path::Path;
 pub fn run(mut opts: ProjectOptions) -> (ProjectOptions, String, String) {
 	path_validation_helper(&opts.dest_dir, true);
 	if opts.client_name.is_none() {
-		println!("Client not set; defaulting to fallback '{}'.", DEF_CLI);
+		print_progress_bar_info(
+			"Info",
+			"Client not set, defaulting to fallback.",
+			Color::Blue,
+			Style::Bold,
+		);
 		opts.client_name = Some(DEF_CLI.to_string());
 	}
 	if opts.project_name.is_none() {
-		println!("Project not set; defaulting to fallback '{}'.", DEF_PRO);
+		print_progress_bar_info(
+			"Info",
+			"Project not set, defaulting to fallback.",
+			Color::Blue,
+			Style::Bold,
+		);
 		opts.project_name = Some(DEF_PRO.to_string());
 	}
 	if opts.bpm.is_none() {
-		println!("BPM not set; defaulting to fallback {}.", DEF_BPM);
+		print_progress_bar_info(
+			"Info",
+			"BPM not set, defaulting to fallback.",
+			Color::Blue,
+			Style::Bold,
+		);
 		opts.bpm = Some(DEF_BPM);
 	}
 	let rpp_contents = load_file_or_default(opts.rpp_templ.as_ref(), DEF_RPP);
@@ -29,13 +45,21 @@ fn load_file_or_default(user_path: Option<&String>, default_contents: &str) -> S
 		Some(path) => match fs::read_to_string(path) {
 			Ok(contents) => contents,
 			Err(_) => {
-				eprintln!("Could not read '{}'. Defaulting to fallback.", path);
+				print_progress_bar_info(
+					"Info",
+					"RPP template and/or .yaml template could not be read, defaulting to fallback.",
+					Color::Blue,
+					Style::Bold,
+				);
 				default_contents.to_string()
 			}
 		},
 		None => {
-			eprintln!(
-				"RPP template and/or .yaml template not set. Defaulting to fallback.",
+			print_progress_bar_info(
+				"Info",
+				"RPP template and/or .yaml template not set, defaulting to fallback.",
+				Color::Blue,
+				Style::Bold,
 			);
 			default_contents.to_string()
 		}
@@ -45,10 +69,15 @@ fn load_file_or_default(user_path: Option<&String>, default_contents: &str) -> S
 /// Check if a path exists and panic if the path is both required and missing
 fn path_validation_helper(path: &str, panic_if_missing: bool) {
 	if Path::new(path).exists() {
-		println!("Valid path: {}", path);
+		let error: String = format!("Valid destination path: '{}'", path);
+		print_progress_bar_info("Info", &error, Color::Green, Style::Bold);
 	} else if panic_if_missing {
-		panic!("Required path is invalid: {}\nTerminating program...", path);
+		let error: String =
+			format!("Required path is invalid: {} Terminating program...", path);
+		print_progress_bar_info("Error", &error, Color::Blue, Style::Bold);
+		panic!();
 	} else {
-		eprintln!("Warning!: path '{}' does not exist.", path);
+		let error: String = format!("Path does not exist: {}", path);
+		print_progress_bar_info("Error", &error, Color::Blue, Style::Bold);
 	}
 }

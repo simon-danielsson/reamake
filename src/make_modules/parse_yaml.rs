@@ -4,16 +4,13 @@ use yaml_rust2::Yaml;
 pub fn run(yaml_contents: &String) -> Vec<FileEntry> {
 	let docs = yaml_rust2::YamlLoader::load_from_str(&yaml_contents).expect("Invalid YAML");
 	let doc = &docs[0];
-	let top_level_name = if let Yaml::Hash(map) = doc {
-		map.keys()
-			.next()
-			.and_then(|k| k.as_str())
-			.unwrap_or("default_root")
-	} else {
-		"default_root"
-	};
 	let mut entries: Vec<FileEntry> = Vec::new();
-	flatten_yaml(doc, top_level_name, &mut entries);
+	if let Yaml::Hash(map) = doc {
+		if let Some((root_key, root_value)) = map.iter().next() {
+			let root_name = root_key.as_str().unwrap_or("default_root");
+			flatten_yaml(root_value, root_name, &mut entries); // Start *inside* root
+		}
+	}
 	entries
 }
 

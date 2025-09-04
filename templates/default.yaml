@@ -7,10 +7,21 @@ mix:
     - stem prep.RPP
     - prep.md
   exports:
-    - drafts: []
-    - final stems: []
+    - drafts:
+      - v1: []
+      - v2: []
+      - v3: []
+    - final stems:
+      - drums: []
+      - bass: []
+      - guitar: []
+      - vocals: []
+      - keys: []
     - stereo: []
-    - alt stereo: []
+    - alt stereo:
+      - radio mix: []
+      - acapella: []
+    - readme.txt
 
     # =======================================
     # == HOW TO USE YAML FILES FOR REAMAKE ==

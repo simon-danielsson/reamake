@@ -8,5 +8,7 @@ assert_cmd = "2"
 predicates = "3"
 
 [dependencies]
+chrono = "0.4.41"
 clap = "4.5.46"
+progress_bar = "1.3.0"
 yaml-rust2 = "0.10.3"
