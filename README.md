@@ -1,53 +1,16 @@
 
-![logo](media/logo.png)
+<img src="media/logo.png" alt="reamake" width="300"/>
 
 **reamake** is a CLI application built for quickly creating folder/file structures for mixing, mastering, and production projects in [**Cockos Reaper**](https://www.reaper.fm/).  
   
-Built with **Rust**, using:  
-+ [clap](https://github.com/BurntSushi/clap-rs?tab=readme-ov-file) for command-line parsing  
-+ [yaml-rust2](https://github.com/ethiraric/yaml-rust2) for YAML parsing  
+Built with **Rust** using:  
++ [clap](https://github.com/BurntSushi/clap-rs)  
++ [yaml-rust2](https://github.com/ethiraric/yaml-rust2)  
++ [progress_bar](https://github.com/Mubelotix/progress-bar)  
++ [chrono](https://github.com/chronotope/chrono)  
   
 Features:  
 + Customizable folder/file structures and templates.  
 + Batch creation of multiple projects at once.  
   
-> ⚠️ Currently, reamake has only been tested on **MacOS**.  
-  
-## Usage  
-  
-### reamake  
-`reamake [OPTIONS] <destin>`  
-  
-**-c** : Client name    
-Optional; defaults to a generic name if omitted.    
-All words are normalized to lowercase with underscores (e.g., cool_project).    
-`-c 'Cool Client'`    
-  
-**-p** : Project name      
-Optional; defaults to a generic name if omitted.    
-All words are normalized to lowercase with underscores (e.g., cool_project).    
-`-c 'Cool Project'`    
-    
-**-b** : BPM    
-Optional; defaults to 120 BPM if omitted.    
-`-b 120`    
-    
-**-t** : Project template    
-Absolute path to a Reaper template file (.RPP).    
-Optional; defaults to an empty project if omitted.    
-`-p 'Users/user/Desktop/music/mixing-projects/templates/mixing.RPP'`    
-    
-**-s** : Structure    
- Absolute path to a folder/file structure template (.yaml).    
-Optional; defaults to a standard structure if omitted.    
-`-s 'Users/user/Desktop/music/mixing-projects/templates/structure.yaml'`    
-  
-### reamake batch  
-`reamake batch <batchfile> <destin>`  
-+ Provide all flags through a .csv file.  
-+ Create several structures at once using a single command. Add path to .csv, and then the destination path.  
-  
-### reamake init  
-`reamake batch <destin>`  
-+ Create initialized .csv and .yaml files in chosen directory for further customization.
-
+> ⚠️ Currently, reamake only has support for Unix systems.  

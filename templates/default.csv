@@ -5,6 +5,19 @@ template, path/to/template
 structure, path/to/structure
 destination, path/to/destination
 
+client, Default Client
+project, Default Project
+bpm, 120
+template, path/to/template
+structure, path/to/structure
+destination, path/to/destination
+
+client, Default Client
+project, Default Project
+bpm, 120
+template, path/to/template
+structure, path/to/structure
+destination, path/to/destination
 
 # ========================================
 # == HOW TO USE BATCH FILES FOR REAMAKE ==
@@ -15,12 +28,12 @@ destination, path/to/destination
 # In the example up top you see three project blocks.
 # It's important that each project "block" is 6 lines long (uninterrupted!)
 # with two fields on each line.
-# The amount of blank lines in between each block doesn't matter.
+# But the amount of blank lines in between each block doesn't matter.
 
 # == OPTION FIELDS ==
 
 # Every option field is optional and has fallbacks,
-# except for the destination path (dest_dir) which is required.
+# except for the destination path which is required.
 # If there's a parameter you don't feel like specifying,
 # still be sure to keep that field filled with something
 # since the reamake batch parser might otherwise get confused!
