@@ -14,3 +14,24 @@ Features:
 + Batch creation of multiple projects at once.  
   
 > ⚠️ Currently, reamake only has support for Unix systems.  
+
+## Installation (MacOS)
+**Download the latest release**  
+``` bash
+curl -L https://github.com/simon-danielsson/reamake/releases/download/v1.0.0/reamake -o /usr/.local/bin/reamake
+```
+  
+**Make it executable**  
+``` bash
+chmod +x /usr/local/bin/your_binary
+```
+  
+**Verify installation**  
+``` bash
+reamake --help
+```
+  
+**Get started by generating initialized template files**  
+``` bash
+reamake init <destination>
+```

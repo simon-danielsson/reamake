@@ -15,17 +15,17 @@ pub fn args_info() -> Vec<(char, &'static str)> {
 	// client [1]
 	info.add(
 		'c',
-		"Set the client name.\nOptional; defaults to a generic name if omitted.\n(All files and folders are normalized to snake case, e.g 'cool_client'.)\nExample usage: -c 'cool client'\n",
+		"Set the client name.\nOptional; defaults to a generic name if omitted.\n(All files and folders are normalized to snake case, e.g 'cool_client'.)\n",
 	);
 
 	// project [2]
 	info.add(
 		'p',
-		"Set the project name.\nOptional; defaults to a generic name if omitted.\n(All files and folders are normalized to snake case, e.g 'cool_project'.)\nExample usage: -p 'cool project'\n",
+		"Set the project name.\nOptional; defaults to a generic name if omitted.\n(All files and folders are normalized to snake case, e.g 'cool_project'.)\n",
 	);
 
 	let bpm = format!(
-		"Set the bpm.\nOptional; defaults to {} BPM if omitted.\nExample usage: -b 114\n",
+		"Set the bpm.\nOptional; defaults to {} BPM if omitted.\n",
 		DEF_BPM
 	);
 	let bpm_st: &'static str = Box::leak(bpm.into_boxed_str());
@@ -36,13 +36,13 @@ pub fn args_info() -> Vec<(char, &'static str)> {
 	// template file [4]
 	info.add(
 		't',
-                "Sets the absolute path to a reaper project template file (.RPP).\nOptional; defaults to an empty project if omitted.\nExample usage: -p 'Users/user/Desktop/music/mixing-projects/templates/mixing.RPP'\n",
+                "Sets the absolute path to a reaper project template file (.RPP).\nOptional; defaults to an empty project if omitted.\n",
 	);
 
 	// structure file [5]
 	info.add(
 		's',
-                "Sets the absolute path to a folder/file structure template (.yaml).\nOptional; defaults to a standard structure if omitted.\nExample usage: -s 'Users/user/Desktop/music/mixing-projects/templates/structure.yaml'\n",
+                "Sets the absolute path to a folder/file structure template (.yaml).\nOptional; defaults to a standard structure if omitted.\n",
 	);
 
 	// destination directory [6]
@@ -51,13 +51,14 @@ pub fn args_info() -> Vec<(char, &'static str)> {
 	// batch [7]
 	info.add(
 		'b',
-                "Provide all flags through a .csv file.\nCreate several structures at once using a single command. \nExample: reamake batch 'Users/user/Desktop/music/mixing-projects/templates/batch.csv'\n",
+                "Provide all flags through a .csv file.\nCreate several structures at once using a single command.\n",
 	);
 
 	// initialized file creation [8]
 	info.add(
-		'i', "Create initialized batch.csv and structure.yaml files in target directory for further customization.\nExample: reamake init 'Users/user/Desktop/music/mixing-projects/templates/'\n",
-        );
+		'i',
+		"Create initialized .csv and .yaml files in target directory for further customization.\n",
+	);
 
 	info.into_vec()
 }
