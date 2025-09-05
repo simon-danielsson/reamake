@@ -6,3 +6,36 @@ structure, path/to/structure
 destination, path/to/destination
 
 
+# ========================================
+# == HOW TO USE BATCH FILES FOR REAMAKE ==
+# ========================================
+
+# == PROJECT BLOCKS ==
+
+# In the example up top you see three project blocks.
+# It's important that each project "block" is 6 lines long (uninterrupted!)
+# with two fields on each line.
+# The amount of blank lines in between each block doesn't matter.
+
+# == OPTION FIELDS ==
+
+# Every option field is optional and has fallbacks,
+# except for the destination path (dest_dir) which is required.
+# If there's a parameter you don't feel like specifying,
+# still be sure to keep that field filled with something
+# since the reamake batch parser might otherwise get confused!
+# Don't worry - reamake will replace any dummy string
+# you input here with a fallback. :)
+
+# == COMMENTS ==
+
+# You can create comments using hashtags.
+# Useful for making notes or to-do lists in your batch files!
+# Note that the reamake batch parser will consider any line with a hashtag in it a comment,
+# so don't place a comment on the same line as an option field to avoid errors.
+
+# == COMMANDS ==
+
+# When your batch file is ready,
+# paste its absolute path into the terminal as an argument to 'remake batch'.
+# Example: reamake batch '/Users/simondanielsson/Desktop/music/templates/batchfile.csv'
