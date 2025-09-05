@@ -30,7 +30,7 @@ impl ProjectOptions {
 }
 
 pub fn make(input_opts: ProjectOptions) {
-	init_progress_bar(5);
+	init_progress_bar(4);
 
 	let opts = validate_opt_inputs::run(input_opts.clone());
 
@@ -50,10 +50,6 @@ pub fn make(input_opts: ProjectOptions) {
 
 	let file_entries_modified =
 		normalize_names::run(file_struct_vec, &project_name, &client_name, &date_str);
-
-	inc_progress_bar();
-
-	// validate structure - ensure main.RPP exists and only appears once
 
 	inc_progress_bar();
 

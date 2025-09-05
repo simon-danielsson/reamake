@@ -39,21 +39,24 @@ pub fn run(mut opts: ProjectOptions) -> (ProjectOptions, String, String) {
 	(opts, rpp_contents, yaml_contents)
 }
 
-/// Returns contents of file on user path, or the default if omitted or invalid
 fn load_file_or_default(user_path: Option<&String>, default_contents: &str) -> String {
 	match user_path {
-		Some(path) => match fs::read_to_string(path) {
-			Ok(contents) => contents,
-			Err(_) => {
-				print_progress_bar_info(
-					"Info",
-					"RPP template and/or .yaml template could not be read, defaulting to fallback.",
-					Color::Blue,
-					Style::Bold,
-				);
-				default_contents.to_string()
+		Some(path) => {
+			// Strip surrounding quotes if present
+			let trimmed_path = path.trim_matches(|c| c == '\'');
+			match fs::read_to_string(trimmed_path) {
+				Ok(contents) => contents,
+				Err(_) => {
+					print_progress_bar_info(
+						"Info",
+						"RPP template and/or .yaml template could not be read, defaulting to fallback.",
+						Color::Blue,
+						Style::Bold,
+					);
+					default_contents.to_string()
+				}
 			}
-		},
+		}
 		None => {
 			print_progress_bar_info(
 				"Info",

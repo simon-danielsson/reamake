@@ -1,30 +1,24 @@
-pub fn run(rpp_contents: &String, new_bpm: &String) -> String {
-	let new_bpm_as_string: &str = new_bpm.as_str();
-
-	let mut original_bpm: String = String::new();
-	let mut new_line: String = String::new();
-	let mut lines_as_vec: Vec<String> = Vec::new();
-
+pub fn run(rpp_contents: &str, new_bpm: &str) -> String {
+	let mut new_rpp_lines = Vec::with_capacity(rpp_contents.lines().count());
+	let mut tempo_updated = false;
 	for line in rpp_contents.lines() {
-		lines_as_vec.push(line.to_string());
-		if line.contains("TEMPO") {
-			for word in line.split_ascii_whitespace() {
-				if word.parse::<u32>().is_ok() {
-					original_bpm = word.to_string();
-					break;
-				}
-			}
-			new_line = line.replace(&original_bpm, new_bpm_as_string);
+		if !tempo_updated && line.trim_start().starts_with("TEMPO ") {
+			let mut parts = line.trim_start().splitn(2, char::is_whitespace);
+			let tempo_keyword = parts.next().unwrap_or("TEMPO");
+			let rest_of_line = parts.next().unwrap_or("").trim_start();
+			let mut rest_parts = rest_of_line.splitn(2, char::is_whitespace);
+			let _old_bpm = rest_parts.next().unwrap_or("");
+			let remaining = rest_parts.next().unwrap_or("");
+			let new_line = if remaining.is_empty() {
+				format!("{} {}", tempo_keyword, new_bpm)
+			} else {
+				format!("{} {} {}", tempo_keyword, new_bpm, remaining)
+			};
+			new_rpp_lines.push(new_line);
+			tempo_updated = true;
+		} else {
+			new_rpp_lines.push(line.to_string());
 		}
 	}
-
-	for i in 0..lines_as_vec.len() {
-		if lines_as_vec[i].contains("TEMPO") {
-			lines_as_vec[i] = new_line.clone();
-			break;
-		}
-	}
-	let new_rpp_contents: String = lines_as_vec.join("\n");
-
-	new_rpp_contents
+	new_rpp_lines.join("\n")
 }
