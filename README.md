@@ -1,5 +1,7 @@
 
-<img src="media/logo.png" alt="reamake" width="300"/>
+<p align="center">
+    <img src="media/logo.png" alt="reamake" width="300"/>
+</p>
 
 **reamake** is a CLI application built for quickly creating folder/file structures for mixing, mastering, and production projects in [**Cockos Reaper**](https://www.reaper.fm/).  
   
@@ -23,7 +25,7 @@ curl -L https://github.com/simon-danielsson/reamake/releases/download/v1.0.0/rea
   
 **Make it executable**  
 ``` bash
-chmod +x /usr/local/bin/reamake
+chmod +x /usr/.local/bin/reamake
 ```
   
 **Verify installation**  
