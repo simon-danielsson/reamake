@@ -23,7 +23,7 @@ curl -L https://github.com/simon-danielsson/reamake/releases/download/v1.0.0/rea
   
 **Make it executable**  
 ``` bash
-chmod +x /usr/local/bin/your_binary
+chmod +x /usr/local/bin/reamake
 ```
   
 **Verify installation**  
