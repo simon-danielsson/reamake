@@ -1,5 +1,4 @@
 use crate::make_modules::file_entry::FileEntry;
-use chrono::Local;
 use progress_bar::*;
 use std::fs;
 use std::fs::File;
@@ -11,8 +10,8 @@ pub fn run(
 	dest_dir: &String,
 	project_name: &String,
 	client_name: &String,
-) {
-	let date_str = Local::now().format("%d-%m-%Y").to_string();
+	date_str: &String,
+) -> String {
 	let master_folder = format!(
 		"{}_{}_{}_{}",
 		file_entries_modified[0].path.split("/").next().unwrap(),
@@ -45,6 +44,7 @@ pub fn run(
 			}
 		}
 	}
+	format!("{}/{}/", dest_dir.trim_end_matches("/"), master_folder)
 }
 
 fn write_to_sys(mut path_vector: Vec<String>, dest_dir: &String) -> std::io::Result<()> {

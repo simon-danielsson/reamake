@@ -1,4 +1,5 @@
-use crate::make_modules::{file_entry::FileEntry, *};
+use crate::make_modules::*;
+use chrono::Local;
 use progress_bar::*;
 
 #[derive(Clone)]
@@ -29,13 +30,15 @@ impl ProjectOptions {
 }
 
 pub fn make(input_opts: ProjectOptions) {
-	init_progress_bar(7);
+	init_progress_bar(5);
 
 	let opts = validate_opt_inputs::run(input_opts.clone());
 
 	let dest_dir = opts.0.item_as_string("dest_dir");
 	let project_name = opts.0.item_as_string("project_name");
 	let client_name = opts.0.item_as_string("client_name");
+	let bpm = opts.0.item_as_string("bpm");
+	let date_str = Local::now().format("%d-%m-%Y").to_string();
 
 	print_progress_bar_info("Creating", &project_name, Color::Green, Style::Bold);
 
@@ -46,7 +49,7 @@ pub fn make(input_opts: ProjectOptions) {
 	inc_progress_bar();
 
 	let file_entries_modified =
-		normalize_names::run(file_struct_vec, &project_name, &client_name);
+		normalize_names::run(file_struct_vec, &project_name, &client_name, &date_str);
 
 	inc_progress_bar();
 
@@ -54,22 +57,19 @@ pub fn make(input_opts: ProjectOptions) {
 
 	inc_progress_bar();
 
-	create_structure::run(
+	let master_folder_path: String = create_structure::run(
 		file_entries_modified,
 		&dest_dir,
 		&project_name,
 		&client_name,
+		&date_str,
 	);
 
 	inc_progress_bar();
 
 	// replace contents of main.RPP project with the given template contents
-
-	inc_progress_bar();
-
 	// modify BPM in all reaper projects in the destination folder recursively
-	// let new_bpm = input_opts.item_as_string("bpm");
-	// change_bpm_of_rpp::run(reaper_file_contents, new_bpm);
+	modify_rpp_contents::run(master_folder_path, opts.1, bpm, date_str);
 
 	finalize_progress_bar();
 }

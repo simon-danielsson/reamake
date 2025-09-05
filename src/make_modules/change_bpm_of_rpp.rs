@@ -1,4 +1,4 @@
-pub fn run(rpp_contents: String, new_bpm: String) -> String {
+pub fn run(rpp_contents: &String, new_bpm: &String) -> String {
 	let new_bpm_as_string: &str = new_bpm.as_str();
 
 	let mut original_bpm: String = String::new();

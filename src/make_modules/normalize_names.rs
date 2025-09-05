@@ -1,34 +1,28 @@
 use crate::make_modules::file_entry::FileEntry;
-use chrono::Local;
 
 pub fn run(
 	file_struct_vec: Vec<FileEntry>,
 	project_name: &String,
 	client_name: &String,
+	date_str: &String,
 ) -> Vec<FileEntry> {
 	let mut entries = file_struct_vec.clone();
-	normalize_file_entries(&mut entries, project_name, client_name);
-	// for entry in entries {
-	// println!("{:?}", entry);
-	// }
+	normalize_file_entries(&mut entries, project_name, client_name, date_str);
 	entries
 }
 
-/// Normalize all entries in-place
 pub fn normalize_file_entries(
 	entries: &mut Vec<FileEntry>,
 	project_name: &str,
 	_client_name: &str,
+	date_str: &String,
 ) {
-	let date_str = Local::now().format("%d-%m-%Y").to_string();
 	for entry in entries.iter_mut() {
-		// Split path into segments and normalize each
 		let segments: Vec<String> = entry
 			.path
 			.split('/')
 			.map(|s| normalize_segment(s))
 			.collect();
-
 		let parent_path = segments[..segments.len() - 1]
 			.iter()
 			.map(|s| normalize_segment(s))
@@ -42,7 +36,6 @@ pub fn normalize_file_entries(
 				.trim_end_matches(".rpp"),
 		);
 		let project_name = normalize_segment(project_name);
-		// let client_name = normalize_segment(client_name);
 		if let Some(content_type) = &entry.content_type {
 			if content_type == "main" {
 				normalized_path = format!(
@@ -56,18 +49,13 @@ pub fn normalize_file_entries(
 				);
 			}
 		}
-
-		// Update path
 		entry.path = normalized_path;
-
-		// Normalize original_name for files (not folders)
 		if !entry.is_folder {
 			entry.original_name = normalize_segment(&entry.original_name);
 		}
 	}
 }
 
-/// Normalize a single segment into snake_case
 fn normalize_segment(segment: &str) -> String {
 	segment.trim()
 		.to_lowercase()

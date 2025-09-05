@@ -70,7 +70,7 @@ fn load_file_or_default(user_path: Option<&String>, default_contents: &str) -> S
 fn path_validation_helper(path: &str, panic_if_missing: bool) {
 	if Path::new(path).exists() {
 		let error: String = format!("Valid destination path: '{}'", path);
-		print_progress_bar_info("Info", &error, Color::Green, Style::Bold);
+		print_progress_bar_info("Info", &error, Color::Blue, Style::Bold);
 	} else if panic_if_missing {
 		let error: String =
 			format!("Required path is invalid: {} Terminating program...", path);
