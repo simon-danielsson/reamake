@@ -251,6 +251,7 @@ impl Reamake {
         Ok(tokens)
     }
 
+    // *brakoll - d: add logic so that override flags for variable fields are respected by the parser, p: 30, t: refactor, s: open
     // *brakoll - d: custom batch file parser, p: 100, t: feature, s: closed
     pub fn parse_reamake_file(&mut self, batch_file_path: String) -> io::Result<ProjectBlock> {
         let mut b: ProjectBlock = ProjectBlock::new()?;
@@ -422,4 +423,3 @@ pub fn rename_node(name: &str, b: &ProjectBlock) -> String {
         return new_name;
     }
 }
-

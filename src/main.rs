@@ -1,6 +1,9 @@
 // *brakoll - d: initial setup, p: 0, t: feature, s: closed
 
-use std::{env, fmt, io, path::PathBuf};
+use std::{
+    env, fmt, fs, io,
+    path::{Path, PathBuf},
+};
 
 use crate::utils::parser::Node;
 
@@ -29,10 +32,11 @@ fn main() -> io::Result<()> {
     let block = r.parse_reamake_file(path.to_string())?;
     r.project_blocks.push(block);
 
-    // *brakoll - d: impl function for gen folder structure with rpp project misc files and all, p: 90, t: feature, s: prog
+    // *brakoll - d: impl function for gen folder structure with rpp project misc files and all, p: 90, t: feature, s: closed
 
-    for mut p in r.project_blocks {
-        p.debug_print();
+    for p in r.project_blocks {
+        generate_structure(&p.target_dir, &p.hierarchy, &p)?;
+        // p.debug_print();
     }
 
     Ok(())
@@ -91,6 +95,7 @@ impl ProjectBlock {
         })
     }
 
+    #[allow(dead_code)]
     fn debug_print(&mut self) {
         println!("[variables]");
         println!("client: {}", self.var_client);
@@ -117,4 +122,56 @@ impl Reamake {
             project_blocks: Vec::new(),
         }
     }
+}
+
+fn generate_structure(root: impl AsRef<Path>, nodes: &[Node], b: &ProjectBlock) -> io::Result<()> {
+    let root = root.as_ref();
+    if !root.exists() {
+        fs::create_dir_all(root)?;
+    }
+    for node in nodes {
+        materialize_node(root, node, b)?;
+    }
+    Ok(())
+}
+
+fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()> {
+    match node {
+        Node::Folder { name, children } => {
+            let dir = base.join(name);
+            fs::create_dir_all(&dir)?;
+
+            for child in children {
+                materialize_node(&dir, child, b)?;
+            }
+        }
+
+        Node::File { name } => {
+            let file_path = base.join(name);
+
+            if let Some(parent) = file_path.parent() {
+                fs::create_dir_all(parent)?;
+            }
+
+            fs::File::create(file_path)?;
+        }
+
+        Node::Rpp { name, children } => {
+            let dir = base.join(name);
+            fs::create_dir_all(&dir)?;
+
+            // Optional: create/copy the actual .rpp file here.
+            // Example: copy the source rpp into this folder and rename it.
+            if !b.src_rpp.trim().is_empty() {
+                let target_rpp = dir.join(format!("{name}.rpp"));
+                fs::copy(&b.src_rpp, target_rpp)?;
+            }
+
+            for child in children {
+                materialize_node(&dir, child, b)?;
+            }
+        }
+    }
+
+    Ok(())
 }
