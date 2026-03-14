@@ -12,7 +12,7 @@ mod utils;
 
 fn main() -> io::Result<()> {
     // *brakoll - d: implement flag -f <file.reamake>, p: 60, t: feature, s: closed
-    // *brakoll - d: implement flag -c <client> flag -p <project> and flag -s <service>, p: 50, t: feature, s: open
+    // *brakoll - d: implement flag -c <client> flag -p <project> and flag -s <service>, p: 50, t: feature, s: closed
     // *brakoll - d: subcommand to normalize and fold audio files in target directory, p: 20, t: feature, s: open
     // *brakoll - d: the def operation will be to create project in cd but add arg for a target directory as well (automatically recognized as a path by the arg parser), p: 100, t: feature, s: closed
     // === get args ===
