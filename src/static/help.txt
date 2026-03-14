@@ -1,0 +1,8 @@
+=== Adding a new issue ===
+
+=== Flags & Subcommands ===
+
+$ reamake
+
+Display help and version information:
+$ reamake help

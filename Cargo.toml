@@ -1,0 +1,12 @@
+[package]
+name = "reamake"
+version = "0.1.0"
+edition = "2024"
+description = "A CLI application built for quickly creating folder structures and preparing stems for mixing, mastering and production projects in Cockos Reaper."
+repository = "https://github.com/simon-danielsson/reamake"
+authors = ["Simon Danielsson <contact@simondanielsson.se>"]
+keywords = ["utility", "audio", "management", "files"]
+homepage = "https://www.simondanielsson.se"
+rust-version = "1.94.0"
+
+[dependencies]
