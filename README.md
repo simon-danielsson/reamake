@@ -10,8 +10,7 @@
 <p align="center">
     <img src="https://img.shields.io/github/v/release/simon-danielsson/reamake?color=blueviolet&style=flat-square" alt="Latest Release" />
     <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT License" />
-  <img src="https://img.shields.io/badge/Rust-stable-orange?style=flat-square" alt="Rust" />
-  <img src="https://img.shields.io/github/last-commit/simon-danielsson/reamake/main?style=flat-square&color=blue" alt="Last commit" />
+    <img src="https://img.shields.io/github/last-commit/simon-danielsson/reamake/main?style=flat-square&color=blue" alt="Last commit" />
 </p>
   
 <p align="center">
