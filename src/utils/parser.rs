@@ -253,7 +253,7 @@ impl Reamake {
 
     // *brakoll - d: custom batch file parser, p: 100, t: feature, s: closed
     pub fn parse_reamake_file(&mut self, batch_file_path: String) -> io::Result<ProjectBlock> {
-        let mut b: ProjectBlock = ProjectBlock::new();
+        let mut b: ProjectBlock = ProjectBlock::new()?;
         let contents = fs::read_to_string(&batch_file_path)?;
 
         let mut lines = contents.lines().peekable();
@@ -422,3 +422,4 @@ pub fn rename_node(name: &str, b: &ProjectBlock) -> String {
         return new_name;
     }
 }
+

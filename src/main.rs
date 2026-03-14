@@ -1,6 +1,6 @@
 // *brakoll - d: initial setup, p: 0, t: feature, s: closed
 
-use std::{fmt, io};
+use std::{env, fmt, io, path::PathBuf};
 
 use crate::utils::parser::Node;
 
@@ -8,6 +8,10 @@ mod subcommands;
 mod utils;
 
 fn main() -> io::Result<()> {
+    // *brakoll - d: implement flag -f <file.reamake>, p: 60, t: feature, s: open
+    // *brakoll - d: implement flag -c <client> flag -p <project> and flag -s <service>, p: 50, t: feature, s: open
+    // *brakoll - d: subcommand to normalize and fold audio files in target directory, p: 20, t: feature, s: open
+    // *brakoll - d: the def operation will be to create project in cd but add arg for a target directory as well (automatically recognized as a path by the arg parser), p: 100, t: feature, s: closed
     // === get args ===
     let args = utils::args::parse()?;
 
@@ -19,12 +23,17 @@ fn main() -> io::Result<()> {
     let mut r = Reamake::new();
 
     // get path to reamake file
-    let path = "../test/mix.reamake";
+    let path = "./test/mix.reamake";
 
     // parse batch file
-    let mut project = r.parse_reamake_file(path.to_string())?;
+    let block = r.parse_reamake_file(path.to_string())?;
+    r.project_blocks.push(block);
 
-    project.debug_print();
+    // *brakoll - d: impl function for gen folder structure with rpp project misc files and all, p: 90, t: feature, s: prog
+
+    for mut p in r.project_blocks {
+        p.debug_print();
+    }
 
     Ok(())
 }
@@ -48,6 +57,8 @@ impl fmt::Display for DateFormat {
 
 #[derive(Debug)]
 struct ProjectBlock {
+    // arg
+    target_dir: PathBuf,
     // variables
     var_client: String,
     var_project: String,
@@ -62,8 +73,10 @@ struct ProjectBlock {
 }
 
 impl ProjectBlock {
-    fn new() -> Self {
-        Self {
+    fn new() -> io::Result<Self> {
+        Ok(Self {
+            //arg
+            target_dir: env::current_dir()?,
             // variables
             var_client: String::new(),
             var_project: String::new(),
@@ -75,7 +88,7 @@ impl ProjectBlock {
             set_kebab: false,
             // hierarchy
             hierarchy: Vec::new(),
-        }
+        })
     }
 
     fn debug_print(&mut self) {
