@@ -1,6 +1,3 @@
-> [!IMPORTANT]  
-> I am currently working on a new and improved version of Reamake (that will introduce Windows support, a more intuitive template system, a more streamlined install process, among other things...). This repo is not going to be maintained anymore, and will soon be archived.
-  
 <p align="center">
     <img src="media/logo.png" alt="reamake" width="200"/>
 </p>
