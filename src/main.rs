@@ -1,6 +1,8 @@
 // *brakoll - d: initial setup, p: 0, t: feature, s: closed
 
-use std::io;
+use std::{fmt, io};
+
+use crate::utils::parser::Node;
 
 mod subcommands;
 mod utils;
@@ -16,9 +18,13 @@ fn main() -> io::Result<()> {
 
     let mut r = Reamake::new();
 
-    // parse batch file
+    // get path to reamake file
     let path = "../test/mix.reamake";
-    r.batch_parser(path.to_string())?;
+
+    // parse batch file
+    let mut project = r.parse_reamake_file(path.to_string())?;
+
+    project.debug_print();
 
     Ok(())
 }
@@ -28,6 +34,16 @@ enum DateFormat {
     US,
     EU,
     ISO,
+}
+impl fmt::Display for DateFormat {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let s = match self {
+            DateFormat::US => "US",
+            DateFormat::EU => "EU",
+            DateFormat::ISO => "ISO",
+        };
+        write!(f, "{s}")
+    }
 }
 
 #[derive(Debug)]
@@ -42,7 +58,7 @@ struct ProjectBlock {
     set_kebab: bool,
     set_date: DateFormat,
     // hierarchy
-    hierarchy: String,
+    hierarchy: Vec<Node>,
 }
 
 impl ProjectBlock {
@@ -58,11 +74,26 @@ impl ProjectBlock {
             set_date: DateFormat::EU,
             set_kebab: false,
             // hierarchy
-            hierarchy: String::new(),
+            hierarchy: Vec::new(),
         }
+    }
+
+    fn debug_print(&mut self) {
+        println!("[variables]");
+        println!("client: {}", self.var_client);
+        println!("project: {}", self.var_project);
+        println!("service: {}", self.var_service);
+        println!("[sources]");
+        println!("rpp: {}", self.src_rpp);
+        println!("[settings]");
+        println!("date: {}", self.set_date);
+        println!("text: {}", self.set_kebab);
+        println!("[hierarchy]");
+        println!("{:#?}", self.hierarchy);
     }
 }
 
+#[allow(dead_code)]
 struct Reamake {
     project_blocks: Vec<ProjectBlock>,
 }

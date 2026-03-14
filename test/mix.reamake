@@ -20,7 +20,7 @@ rpp: /Users/simondanielsson/dev/rust/reamake/test/project.rpp
 
 # normalize variable names and other folder/file names to "kebab-case" (true | false)
 # setting to false will preserve original capitalization
-format_names: true
+format_names: false
 
 # US: MM-DD-YYYY, EU: DD-MM-YYYY, ISO: YYYY-MM-DD
 format_date: EU
@@ -31,10 +31,9 @@ format_date: EU
 [hierarchy]
 
 folder "[$service] $client - $project ($date)" {
-
     folder "project" {
         rpp "$project $date"
-        file "notes.md"
+            file "notes.md"
     }
 
     folder "stems" {

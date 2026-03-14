@@ -19,7 +19,7 @@ pub struct Arguments {
 pub fn parse() -> io::Result<Arguments> {
     let mut it = std::env::args().skip(1); // skip program name
     let mut filter_tag = String::new();
-    let mut filter_status = String::new();
+    // let mut filter_status = String::new();
     let mut filter_desc = String::new();
     let mut help = false;
     let mut summary = false;
@@ -30,7 +30,7 @@ pub fn parse() -> io::Result<Arguments> {
 
     // status change subc vars
     // let mut status_ch_status: Option<IssueStatus> = None;
-    let mut status_ch_id: u32 = 0;
+    // let mut status_ch_id: u32 = 0;
 
     while let Some(arg) = it.next() {
         match arg.as_str() {
@@ -39,12 +39,11 @@ pub fn parse() -> io::Result<Arguments> {
                     it.next().expect("No tag was given after the \"-t\" flag.");
             }
 
-            "-s" => {
-                filter_status = it
-                    .next()
-                    .expect("No status was given after the \"-s\" flag.");
-            }
-
+            // "-s" => {
+            //     filter_status = it
+            //         .next()
+            //         .expect("No status was given after the \"-s\" flag.");
+            // }
             "-d" => {
                 filter_desc = it
                     .next()
