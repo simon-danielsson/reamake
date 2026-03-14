@@ -161,6 +161,7 @@ impl Reamake {
             n.rename_all(&|name| rename_node(name, b));
         }
 
+        println!("{:#?}", ast);
         Ok(ast)
     }
 
@@ -297,7 +298,7 @@ impl Reamake {
 
                     match k.trim() {
                         "rpp" => {
-                            b.src_rpp = v.to_string();
+                            b.src_rpp = v.trim().to_string();
                         }
                         _ => {
                             continue;
@@ -322,7 +323,7 @@ impl Reamake {
 
                     match k.trim() {
                         "rpp" => {
-                            b.src_rpp = v.to_string();
+                            b.src_rpp = v.trim().to_string();
                         }
                         _ => {
                             continue;
@@ -411,3 +412,4 @@ pub fn rename_node(name: &str, b: &ProjectBlock) -> String {
         return new_name;
     }
 }
+

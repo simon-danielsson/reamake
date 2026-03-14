@@ -13,7 +13,7 @@ service: Mix
 # external files used for generation
 [sources]
 
-rpp: /Users/simondanielsson/dev/rust/reamake/test/project.rpp
+rpp: /Users/simondanielsson/dev/rust/reamake/test/default.RPP
 
 # changes in behavior
 [settings]

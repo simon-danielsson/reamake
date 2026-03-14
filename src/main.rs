@@ -126,7 +126,7 @@ impl Reamake {
     }
 }
 
-// *brakoll - d: generation of folder structure is not getting far down in the ast, p: 90, t: fix, s: prog
+// *brakoll - d: generation of folder structure is not getting far down in the ast, p: 90, t: fix, s: closed
 pub fn generate_structure(
     root: impl AsRef<Path>,
     nodes: &[Node],
@@ -147,6 +147,7 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
         Node::Folder { name, children } => {
             let dir = base.join(name);
             fs::create_dir_all(&dir)?;
+            println!("folder created");
 
             for child in children {
                 materialize_node(&dir, child, b)?;
@@ -159,6 +160,7 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
             if let Some(parent) = path.parent() {
                 fs::create_dir_all(parent)?;
             }
+            println!("file created");
 
             fs::File::create(path)?;
         }
@@ -175,6 +177,7 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
             if let Some(parent) = path.parent() {
                 fs::create_dir_all(parent)?;
             }
+            println!("rpp created");
 
             if b.src_rpp.trim().is_empty() {
                 fs::File::create(path)?;
