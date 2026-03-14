@@ -24,12 +24,13 @@ enum Token {
     Name(String),
 }
 
+// *brakoll - d: rpp is treated as a dir and should instead be treated as a file, p: 100, t: fix, s: closed
 #[allow(dead_code)]
 #[derive(Clone, Debug)]
 pub enum Node {
     Folder { name: String, children: Vec<Node> },
     File { name: String },
-    Rpp { name: String, children: Vec<Node> },
+    Rpp { name: String },
 }
 
 impl Node {
@@ -47,11 +48,8 @@ where
             Node::File { name } => {
                 *name = f(name);
             }
-            Node::Rpp { name, children } => {
+            Node::Rpp { name } => {
                 *name = f(name);
-                for child in children {
-                    child.rename_all(f);
-                }
             }
         }
     }
@@ -138,17 +136,7 @@ impl HierParser {
     fn parse_rpp(&mut self) -> Result<Node, String> {
         self.expect(Token::Rpp)?;
         let name = self.expect_name()?;
-
-        let mut children = Vec::new();
-
-        while matches!(
-            self.peek(),
-            Some(Token::File) | Some(Token::Folder) | Some(Token::Rpp)
-        ) {
-            children.push(self.parse_node()?);
-        }
-
-        Ok(Node::Rpp { name, children })
+        Ok(Node::Rpp { name })
     }
 }
 

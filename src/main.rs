@@ -36,7 +36,6 @@ fn main() -> io::Result<()> {
     let block = r.parse_reamake_file(args.reamake_file_path)?;
     r.project_blocks.push(block);
 
-    // *brakoll - d: impl function for gen folder structure with rpp project misc files and all, p: 90, t: feature, s: closed
     for p in r.project_blocks {
         generate_structure(&p.target_dir, &p.hierarchy, &p)?;
         // p.debug_print();
@@ -63,7 +62,7 @@ impl fmt::Display for DateFormat {
 }
 
 #[derive(Debug)]
-struct ProjectBlock {
+pub struct ProjectBlock {
     // arg
     target_dir: PathBuf,
     // variables
@@ -127,14 +126,19 @@ impl Reamake {
     }
 }
 
-fn generate_structure(root: impl AsRef<Path>, nodes: &[Node], b: &ProjectBlock) -> io::Result<()> {
+// *brakoll - d: generation of folder structure is not getting far down in the ast, p: 90, t: fix, s: prog
+pub fn generate_structure(
+    root: impl AsRef<Path>,
+    nodes: &[Node],
+    b: &ProjectBlock,
+) -> io::Result<()> {
     let root = root.as_ref();
-    if !root.exists() {
-        fs::create_dir_all(root)?;
-    }
+    fs::create_dir_all(root)?;
+
     for node in nodes {
         materialize_node(root, node, b)?;
     }
+
     Ok(())
 }
 
@@ -150,28 +154,32 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
         }
 
         Node::File { name } => {
-            let file_path = base.join(name);
+            let path = base.join(name);
 
-            if let Some(parent) = file_path.parent() {
+            if let Some(parent) = path.parent() {
                 fs::create_dir_all(parent)?;
             }
 
-            fs::File::create(file_path)?;
+            fs::File::create(path)?;
         }
 
-        Node::Rpp { name, children } => {
-            let dir = base.join(name);
-            fs::create_dir_all(&dir)?;
+        Node::Rpp { name } => {
+            let mut filename = name.clone();
 
-            // Optional: create/copy the actual .rpp file here.
-            // Example: copy the source rpp into this folder and rename it.
-            if !b.src_rpp.trim().is_empty() {
-                let target_rpp = dir.join(format!("{name}.rpp"));
-                fs::copy(&b.src_rpp, target_rpp)?;
+            if !filename.ends_with(".rpp") {
+                filename.push_str(".rpp");
             }
 
-            for child in children {
-                materialize_node(&dir, child, b)?;
+            let path = base.join(filename);
+
+            if let Some(parent) = path.parent() {
+                fs::create_dir_all(parent)?;
+            }
+
+            if b.src_rpp.trim().is_empty() {
+                fs::File::create(path)?;
+            } else {
+                fs::copy(&b.src_rpp, path)?;
             }
         }
     }
