@@ -1,6 +1,6 @@
 use std::{fs, io};
 
-use crate::{DateFormat, ProjectBlock, Reamake};
+use crate::{DateFormat, ProjectBlock, Reamake, utils::args::Arguments};
 
 /// ignore comments and empty lines
 macro_rules! ign {
@@ -140,7 +140,7 @@ impl HierParser {
     }
 }
 
-impl Reamake {
+impl Reamake<'_> {
     // *brakoll - d: have the file structure be part of the batch file! the batch parser can call the structure parser from within itself and create a hierarchy struct directly in each projectblock struct (in place of a string path) , p: 90, t: feature, s: closed
     // *brakoll - d: custom folder structure hierarchy parser, p: 100, t: feature, s: closed
 
@@ -157,8 +157,10 @@ impl Reamake {
         let tokens = self.hierarchy_lexer(&src_r).unwrap();
         let mut ast = HierParser::new(tokens).parse_all().unwrap();
 
+        // rename files according to reamake file settings and arg overrides
+        let args = self.args.to_owned();
         for n in ast.iter_mut() {
-            n.rename_all(&|name| rename_node(name, b));
+            n.rename_all(&|name| rename_node(name, b, args.clone()));
         }
 
         println!("{:#?}", ast);
@@ -240,9 +242,9 @@ impl Reamake {
         Ok(tokens)
     }
 
-    // *brakoll - d: add logic so that override flags for variable fields are respected by the parser, p: 30, t: refactor, s: prog
+    // *brakoll - d: add logic so that override flags for variable fields are respected by the parser, p: 30, t: refactor, s: closed
     // *brakoll - d: custom batch file parser, p: 100, t: feature, s: closed
-    pub fn parse_reamake_file(&mut self, batch_file_path: String) -> io::Result<ProjectBlock> {
+    pub fn parse_reamake_file(&mut self, batch_file_path: &String) -> io::Result<ProjectBlock> {
         let mut b: ProjectBlock = ProjectBlock::new()?;
         let contents = fs::read_to_string(&batch_file_path)?;
 
@@ -399,12 +401,25 @@ fn format_name_to_kebab(name: String) -> String {
 }
 
 /// helper: parse_hierarchy
-pub fn rename_node(name: &str, b: &ProjectBlock) -> String {
+pub fn rename_node(name: &str, b: &ProjectBlock, args: Arguments) -> String {
+    let mut client = &b.var_client.to_owned();
+    if !args.client.is_empty() {
+        client = &args.client;
+    }
+    let mut project = &b.var_project.to_owned();
+    if !args.project.is_empty() {
+        project = &args.project;
+    }
+    let mut service = &b.var_service.to_owned();
+    if !args.service.is_empty() {
+        service = &args.service;
+    }
+
     let date = get_current_date(&b.set_date);
     let new_name = name
-        .replace("$client", &b.var_client.trim())
-        .replace("$project", &b.var_project.trim())
-        .replace("$service", &b.var_service.trim())
+        .replace("$client", client.trim())
+        .replace("$project", project.trim())
+        .replace("$service", service.trim())
         .replace("$date", &date);
     if b.set_kebab {
         return format_name_to_kebab(new_name);

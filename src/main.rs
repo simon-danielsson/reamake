@@ -5,7 +5,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-use crate::utils::parser::Node;
+use crate::utils::{args::Arguments, parser::Node};
 
 mod subcommands;
 mod utils;
@@ -30,10 +30,10 @@ fn main() -> io::Result<()> {
         return Ok(());
     }
 
-    let mut r = Reamake::new();
+    let mut r = Reamake::new(&args);
 
     // parse batch file
-    let block = r.parse_reamake_file(args.reamake_file_path)?;
+    let block = r.parse_reamake_file(&args.reamake_file_path.to_string())?;
     r.project_blocks.push(block);
 
     for p in r.project_blocks {
@@ -114,13 +114,15 @@ impl ProjectBlock {
 }
 
 #[allow(dead_code)]
-struct Reamake {
+struct Reamake<'a> {
+    args: &'a Arguments,
     project_blocks: Vec<ProjectBlock>,
 }
 
-impl Reamake {
-    fn new() -> Self {
+impl<'a> Reamake<'a> {
+    fn new(args: &'a Arguments) -> Self {
         Self {
+            args,
             project_blocks: Vec::new(),
         }
     }
