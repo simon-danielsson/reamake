@@ -9,7 +9,7 @@ pub struct Arguments {
     // pub no_rec: bool,
     // pub filter_tag: String,
     // pub filter_desc: String,
-    // pub filter_status: Option<IssueStatus>,
+    pub reamake_file_path: String,
     pub opt_target: PathBuf,
     // pub change_status: (u32, Option<IssueStatus>),
     // pub copy_id: u32,
@@ -17,12 +17,8 @@ pub struct Arguments {
 
 pub fn parse() -> io::Result<Arguments> {
     let mut it = std::env::args().skip(1); // skip program name
-    // let mut filter_tag = String::new();
-    // let mut filter_status = String::new();
-    // let mut filter_desc = String::new();
+    let mut reamake_file_path = String::new();
     let mut help = false;
-    // let mut summary = false;
-    // let mut no_rec = false;
     let mut opt_target = PathBuf::new();
 
     // let mut copy_id: u32 = 0;
@@ -33,10 +29,10 @@ pub fn parse() -> io::Result<Arguments> {
 
     while let Some(arg) = it.next() {
         match arg.as_str() {
-            // "-t" => {
-            //     filter_tag =
-            //         it.next().expect("No tag was given after the \"-t\" flag.");
-            // }
+            "-f" => {
+                reamake_file_path =
+                    it.next().expect("No tag was given after the \"-t\" flag.");
+            }
 
             // "-s" => {
             //     filter_status = it
@@ -114,7 +110,7 @@ pub fn parse() -> io::Result<Arguments> {
     // };
 
     // let filter_tag = filter_tag.trim();
-    // let filter_desc = filter_desc.trim();
+    let reamake_file_path = reamake_file_path.trim();
 
     Ok(Arguments {
         help,
@@ -124,6 +120,7 @@ pub fn parse() -> io::Result<Arguments> {
         // filter_desc: filter_desc.to_string(),
         // filter_status: status,
         opt_target,
+        reamake_file_path: reamake_file_path.to_string(),
         // change_status: (status_ch_id, status_ch_status),
         // copy_id,
     })

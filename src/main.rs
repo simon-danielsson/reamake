@@ -11,7 +11,7 @@ mod subcommands;
 mod utils;
 
 fn main() -> io::Result<()> {
-    // *brakoll - d: implement flag -f <file.reamake>, p: 60, t: feature, s: open
+    // *brakoll - d: implement flag -f <file.reamake>, p: 60, t: feature, s: closed
     // *brakoll - d: implement flag -c <client> flag -p <project> and flag -s <service>, p: 50, t: feature, s: open
     // *brakoll - d: subcommand to normalize and fold audio files in target directory, p: 20, t: feature, s: open
     // *brakoll - d: the def operation will be to create project in cd but add arg for a target directory as well (automatically recognized as a path by the arg parser), p: 100, t: feature, s: closed
@@ -23,17 +23,20 @@ fn main() -> io::Result<()> {
         return Ok(());
     }
 
+    if args.reamake_file_path.is_empty() {
+        eprintln!(
+        "You didn't supply a path to a reamake file!\nUse the 'help' subcommand if you're feeling lost."
+    );
+        return Ok(());
+    }
+
     let mut r = Reamake::new();
 
-    // get path to reamake file
-    let path = "./test/mix.reamake";
-
     // parse batch file
-    let block = r.parse_reamake_file(path.to_string())?;
+    let block = r.parse_reamake_file(args.reamake_file_path)?;
     r.project_blocks.push(block);
 
     // *brakoll - d: impl function for gen folder structure with rpp project misc files and all, p: 90, t: feature, s: closed
-
     for p in r.project_blocks {
         generate_structure(&p.target_dir, &p.hierarchy, &p)?;
         // p.debug_print();
