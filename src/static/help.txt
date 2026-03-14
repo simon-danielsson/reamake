@@ -1,8 +1,18 @@
-=== Adding a new issue ===
-
 === Flags & Subcommands ===
 
-$ reamake
+At end end of most commands, an optional target path can be added.
+When no target path has been specified your current directory will be assumed.
+$ reamake -f ./template.reamake <optional target path>
+
+Create a new folder structure:
+$ reamake -f <reamake template file>
+
+In your reamake template file you can set variables such as client name,
+project name and service name. If you'd like to override one or more of
+these fields you can do so through the cli:
+$ reamake ... -c <client name override>
+$ reamake ... -p <project name override>
+$ reamake ... -s <service name override>
 
 Display help and version information:
 $ reamake help
