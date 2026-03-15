@@ -1,3 +1,5 @@
+For more detailed information, visit the github repo.
+
 === Flags & Subcommands ===
 
 At end end of most commands, an optional target path can be added.

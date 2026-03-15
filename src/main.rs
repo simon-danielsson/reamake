@@ -26,9 +26,15 @@ fn main() -> io::Result<()> {
         return Ok(());
     }
 
+    // *brakoll - d: add extra check for .reamake extension before parsing reamake file, p: 100, t: fix, s: closed
     if args.reamake_file_path.is_empty() {
         eprintln!(
-        "You didn't supply a path to a reamake file!\nUse the 'help' subcommand if you're feeling lost."
+        "You didn't assign a path to a reamake file!\nUse the 'help' subcommand if you're feeling lost."
+    );
+        return Ok(());
+    } else if !args.reamake_file_path.trim().ends_with(".reamake") {
+        eprintln!(
+        "Your assigned reamake file does not use the .reamake extension!\nUse the 'help' subcommand if you're feeling lost."
     );
         return Ok(());
     }
