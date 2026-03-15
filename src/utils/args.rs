@@ -1,10 +1,9 @@
 use std::{io, path::PathBuf};
 
-// use crate::IssueStatus;
-
 #[derive(PartialEq, Clone)]
 pub struct Arguments {
     pub help: bool,
+    pub init: bool,
     pub reamake_file_path: String,
     pub opt_target: PathBuf,
     pub client: String,
@@ -15,6 +14,7 @@ impl Arguments {
     fn new() -> Self {
         Self {
             help: false,
+            init: false,
             reamake_file_path: String::new(),
             opt_target: PathBuf::new(),
             client: String::new(),
@@ -56,6 +56,10 @@ pub fn parse() -> io::Result<Arguments> {
                     .next()
                     .expect("No client name was given after the \"-c\" flag.");
                 a.client = arg.trim().to_string();
+            }
+
+            "init" => {
+                a.init = true;
             }
 
             "help" => {

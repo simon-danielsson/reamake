@@ -10,7 +10,6 @@ use crate::utils::{args::Arguments, parser::Node};
 mod subcommands;
 mod utils;
 
-// *brakoll - d: implement 'init' subcommand that generates template files (perhaps a .reamake file and a stock .rpp file) in current directory (or opt_path), p: 100, t: feature, s: prog
 // *brakoll - d: give the user power to add any variables they want to their folder structure (would probably require a small overhaul but it could be quite powerful), p: 0, t: feature, s: open
 // *brakoll - d: add logic so that if a reamake file has not been added to the template file or if the path is invalid generate a fallback, p: , t: , s: open
 fn main() -> io::Result<()> {
@@ -20,6 +19,11 @@ fn main() -> io::Result<()> {
     // *brakoll - d: the def operation will be to create project in cd but add arg for a target directory as well (automatically recognized as a path by the arg parser), p: 100, t: feature, s: closed
     // === get args ===
     let args = utils::args::parse()?;
+
+    if args.init {
+        subcommands::init::gen_init(args)?;
+        return Ok(());
+    }
 
     if args.help {
         subcommands::help::print();
@@ -158,7 +162,6 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
         Node::Folder { name, children } => {
             let dir = base.join(name);
             fs::create_dir_all(&dir)?;
-            println!("folder created");
 
             for child in children {
                 materialize_node(&dir, child, b)?;
@@ -171,7 +174,6 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
             if let Some(parent) = path.parent() {
                 fs::create_dir_all(parent)?;
             }
-            println!("file created");
 
             fs::File::create(path)?;
         }
@@ -188,7 +190,6 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
             if let Some(parent) = path.parent() {
                 fs::create_dir_all(parent)?;
             }
-            println!("rpp created");
 
             if b.src_rpp.trim().is_empty() {
                 fs::File::create(path)?;
@@ -200,3 +201,4 @@ fn materialize_node(base: &Path, node: &Node, b: &ProjectBlock) -> io::Result<()
 
     Ok(())
 }
+

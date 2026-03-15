@@ -85,9 +85,8 @@ Here you will set which RPP file you want to use as your project template (as an
   
 #### Section - settings
   
-Here you've got two settings you can adjust:
-`format_names` : format all variable, file and folder names to kebab-case (Normal: Cool Artist Name, kebab-case: cool-artist-name).
-`format_date` : pick between US, EU and ISO date formatting.
+`format_names` : < true | false > format all variable, file and folder names to kebab-case (if omitted, defaults to false).  
+`format_date` : < US | EU | ISO > date formatting (if omitted, defaults to EU).  
   
 #### Section - hierarchy
   
