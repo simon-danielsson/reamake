@@ -26,7 +26,7 @@
 
 ## Features
   
-- For building folder structures Reamake features its own custom scripting language with variable support - designed to strike a balance between being powerful and beginner-friendly.  
+- For designing your folder structures Reamake features its own scripting language with variable support, designed to strike a balance between being powerful and beginner-friendly.  
 - Subcommands for normalizing, correcting and sorting raw audio stems in record-time.
   
 ---
@@ -52,7 +52,7 @@ Generate initialized reamake template file
 reamake init <target dir>
 ```
   
-Generate folder structure from template file
+Generate folder structure from template file  
 (without target dir, current directory is assumed):  
   
 ``` terminal
@@ -77,7 +77,7 @@ reamake help
   
 ### Template file (.reamake)
   
-The core workflow of Reamake is feeding the CLI with reamake template files. A reamake file (file with the .reamake extension) is divided up into four sections: variables, sources, settings and hierarchy. This template format accepts comments, but comment lines should be separate from the parameter lines since doing otherwise could lead to undefined behaviour.  
+The core workflow of Reamake is feeding the CLI with reamake template files. A reamake file (file with the .reamake extension) is divided up into four sections: variables, sources, settings and hierarchy. This template format accepts comments (prefixed with '#'), but comment lines should be separate from the parameter lines since doing otherwise could lead to undefined behaviour.  
   
 #### Section - variables
   
