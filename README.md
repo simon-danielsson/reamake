@@ -14,7 +14,7 @@
 </p>
   
 <p align="center">
-  <a href="#info">Information</a> •
+  <a href="#feat">Features</a> •
   <a href="#install">Install</a> •
   <a href="#usage">Usage</a> •
   <a href="#deps">Dependencies</a> •
@@ -22,15 +22,11 @@
 </p>  
   
 ---
-<div id="info"></div>
+<div id="feat"></div>
 
-## Information
+## Features
   
-Reamake makes it easier and faster for mixing- and mastering-engineers to organize and prepare their projects for production.
-  
-### Features
-  
-- For building folder structures Reamake features its own custom scripting language with variable support - built to strike a balance between being powerful and beginner-friendly.  
+- For building folder structures Reamake features its own custom scripting language with variable support - designed to strike a balance between being powerful and beginner-friendly.  
 - Subcommands for normalizing, correcting and sorting raw audio stems in record-time.
   
 ---
@@ -49,10 +45,18 @@ cargo install reamake
   
 ### CLI
   
-Generate initialized reamake template file:  
+Generate initialized reamake template file  
+(without target dir, current directory is assumed):  
   
 ``` terminal
-reamake init <optional target dir>
+reamake init <target dir>
+```
+  
+Generate folder structure from template file
+(without target dir, current directory is assumed):  
+  
+``` terminal
+reamake -f <reamake template file> <target dir>
 ```
   
 In your reamake template file you can set variables such as client name,  
@@ -60,9 +64,9 @@ project name and service name. If you'd like to override one or more of
 these fields you can do so through the cli:  
   
 ``` terminal
-$ reamake ... -c <client name override>
-$ reamake ... -p <project name override>
-$ reamake ... -s <service name override>
+reamake ... -c <client name override>
+reamake ... -p <project name override>
+reamake ... -s <service name override>
 ```
   
 Display help and version information:  
@@ -110,6 +114,8 @@ rpp: /Users/user/Music/rpp-templates/mix_2026.RPP
 [settings]
 
 format_names: false
+
+# US: MM-DD-YYYY, EU: DD-MM-YYYY, ISO: YYYY-MM-DD
 format_date: EU
 
 [hierarchy]

@@ -2,11 +2,12 @@ For more detailed information, visit the github repo.
 
 === Flags & Subcommands ===
 
-At end end of most commands, an optional target path can be added.
-When no target path has been specified your current directory will be assumed.
-$ reamake -f ./template.reamake <optional target path>
+Generate initialized reamake template file
+(without target dir, current directory is assumed):
+$ reamake init <optional target dir>
 
-Create a new folder structure:
+Generate folder structure from template file
+(without target dir, current directory is assumed):
 $ reamake -f <reamake template file>
 
 In your reamake template file you can set variables such as client name,
