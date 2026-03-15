@@ -1,48 +1,35 @@
-# values you can customize and re-use
 [variables]
 
-# These variables can be set right here and/or they can be overridden at in the CLI.
-# My advice is that you keep fallback values here and override them explicitly in the CLI!
-
-# These can (and should) be used as variables (with prefix "$") in the hierarchy tree down below!
-
-client: CoolBoi420
-project: My cool song
+client: Cool Artist Name
+project: Funk Song
 service: Mix
 
-# external files used for generation
 [sources]
 
-rpp: /Users/simondanielsson/dev/rust/reamake/test/default.RPP
+rpp: /Users/user/Music/rpp-templates/mix_2026.RPP
 
-# changes in behavior
 [settings]
 
-# normalize variable names and other folder/file names to "kebab-case" (true | false)
-# setting to false will preserve original capitalization
 format_names: false
-
-# US: MM-DD-YYYY, EU: DD-MM-YYYY, ISO: YYYY-MM-DD
 format_date: EU
 
-# folder tree structure
-# this is custom hierarchy syntax developed especially for Reamake!
-# the language is self-explanatory, the only keywords to keep track of are "folder", "file" and "rpp"
 [hierarchy]
 
-folder "[$service] $client - $project ($date)" {
+folder "$date, [$service] $client - $project" {
     folder "project" {
         rpp "$project $date"
             file "notes.md"
     }
-
     folder "stems" {
         folder "processed" {}
-        folder "raw" {}
+        folder "raw" {
+            file "todo.md"
+        }
     }
-
     folder "export" {
-        folder "drafts" {}
+        folder "drafts" {
+            folder "v1" {}
+        }
     }
+    file "deadlines $project.md"
 }
-

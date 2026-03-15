@@ -105,7 +105,7 @@ service: Mix
 
 [sources]
 
-rpp: /Users/simondanielsson/dev/rust/reamake/test/default.RPP
+rpp: /Users/user/Music/rpp-templates/mix_2026.RPP
 
 [settings]
 
