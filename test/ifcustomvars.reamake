@@ -1,0 +1,32 @@
+variables [
+    # built-in variable: date
+    client: string = CoolBoi420
+    project: string = My cool song
+    service: string = Mix
+    rpp: file = /Users/simondanielsson/dev/rust/reamake/test/default.RPP
+    stems: folder = /Users/simondanielsson/dev/rust/reamake/test/stems
+]
+
+settings [
+    # false: preserve original, true: kebab-case
+    format_names: false
+    # EU, US, ISO
+    format_date: EU
+]
+
+hierarchy [
+    folder "[$service] $client - $project ($date)" {
+        folder "project" {
+            rpp "$project $date.RPP"
+            file "notes.md"
+        }
+
+        stems "stems" {
+            file "todo.md"
+        }
+
+        folder "export" {
+            folder "drafts" {}
+        }
+    }
+]

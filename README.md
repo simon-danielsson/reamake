@@ -1,3 +1,8 @@
+> [!IMPORTANT]  
+> This program is still a work in progress.
+> Nothing has been fully implemented or tested yet.
+> Come back at a later date!
+
 <p align="center">
     <img src="media/logo.png" alt="reamake" width="200"/>
 </p>
@@ -26,7 +31,7 @@
 
 ## Features
   
-- For designing your folder structures Reamake features its own scripting language with variable support, designed to strike a balance between being powerful and beginner-friendly.  
+- For designing your folder structures Reamake features its own scripting language with support for custom variables, striking a balance between flexibility and ease-of-use.  
 - Subcommands for normalizing, correcting and sorting raw audio stems in record-time (not implemented yet).
   
 ---
