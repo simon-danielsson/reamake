@@ -7,6 +7,7 @@ pub const APP_DESC: &str = env!("CARGO_PKG_DESCRIPTION");
 pub const APP_AUTH: &str = env!("CARGO_PKG_AUTHORS");
 
 // *brakoll - d: add nice help command content and the same in the readme, p: 100, t: docs, s: closed
+// *brakoll - d: fix formatting of .reamake file example in readme, p: 20, t: docs, s: closed
 pub fn print() {
     println!("");
     println!("{n} v{v}", n = APP_NAME, v = APP_VERS);

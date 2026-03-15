@@ -73,53 +73,65 @@ reamake help
   
 ### Template file (.reamake)
   
+The core workflow of Reamake is feeding the CLI with reamake template files. A reamake file (file with the .reamake extension) is divided up into four sections: variables, sources, settings and hierarchy. This template format accepts comments, but comment lines should be separate from the parameter lines since doing otherwise could lead to undefined behaviour.  
+  
+#### Section - variables
+  
+In this section you can set variables for the names of the folder hierarchy. These can be set in the template or the CLI - my advice is that you keep fallback values here and override them explicitly in the CLI!
+  
+#### Section - sources
+  
+Here you will set which RPP file you want to use as your project template (as an absolute path). If no RPP path is assigned here, a new empty RPP project will be generated for you.
+  
+#### Section - settings
+  
+Here you've got two settings you can adjust:
+`format_names` : format all variable, file and folder names to kebab-case (Normal: Cool Artist Name, kebab-case: cool-artist-name).
+`format_date` : pick between US, EU and ISO date formatting.
+  
+#### Section - hierarchy
+  
+Here is where you set the folder hierarchy using a custom hierarchy "language" developed especially for Reamake! The language itself is self-explanatory, the only keywords to keep track of are "folder"(a folder), "file"(a file) and "rpp"(the template project you've got set in the section "sources"). Every keyword takes a name within double-qoutes directly after it. When naming files you can add an extension as part of the name, and the file will be generated with that extension.  
+  
+You can (and should) be making use of variables, since these make a template more general and flexible. But it's not obligatory to use variables - for example, if you don't want to use the "service" or "date" variable you can simply omit them when naming your hierarchy.  
+  
+#### Full example
+  
 ``` conf
-# values you can customize and re-use
 [variables]
 
-# These variables can be set right here and/or they can be overridden at in the CLI.
-# My advice is that you keep fallback values here and override them explicitly in the CLI!
-
-# These can (and should) be used as variables (with prefix "$") in the hierarchy tree down below!
-
-client: CoolBoi420
-project: My cool song
+client: Cool Artist Name
+project: Funk Song
 service: Mix
 
-# external files used for generation
 [sources]
 
 rpp: /Users/simondanielsson/dev/rust/reamake/test/default.RPP
 
-# changes in behavior
 [settings]
 
-# normalize variable names and other folder/file names to "kebab-case" (true | false)
-# setting to false will preserve original capitalization
 format_names: false
-
-# US: MM-DD-YYYY, EU: DD-MM-YYYY, ISO: YYYY-MM-DD
 format_date: EU
 
-# folder tree structure
-# this is custom hierarchy syntax developed especially for Reamake!
-# the language is self-explanatory, the only keywords to keep track of are "folder", "file" and "rpp"
 [hierarchy]
 
-folder "[$service] $client - $project ($date)" {
+folder "$date, [$service] $client - $project" {
     folder "project" {
         rpp "$project $date"
-            file "notes.md"
+        file "notes.md"
     }
-
     folder "stems" {
         folder "processed" {}
-        folder "raw" {}
+        folder "raw" {
+            file "todo.md"
+        }
     }
-
     folder "export" {
-        folder "drafts" {}
+        folder "drafts" {
+            folder "v1" {}
+        }
     }
+    file "deadlines $project.md"
 }
 ```
   

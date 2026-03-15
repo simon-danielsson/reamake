@@ -10,9 +10,9 @@ use crate::utils::{args::Arguments, parser::Node};
 mod subcommands;
 mod utils;
 
-// *brakoll - d: implement 'init' subcommand that generates template files (perhaps a .reamake file and a stock .rpp file) in current directory (or opt_path), p: , t: , s: open
+// *brakoll - d: implement 'init' subcommand that generates template files (perhaps a .reamake file and a stock .rpp file) in current directory (or opt_path), p: 100, t: feature, s: prog
 // *brakoll - d: give the user power to add any variables they want to their folder structure (would probably require a small overhaul but it could be quite powerful), p: 0, t: feature, s: open
-
+// *brakoll - d: add logic so that if a reamake file has not been added to the template file or if the path is invalid generate a fallback, p: , t: , s: open
 fn main() -> io::Result<()> {
     // *brakoll - d: implement flag -f <file.reamake>, p: 60, t: feature, s: closed
     // *brakoll - d: implement flag -c <client> flag -p <project> and flag -s <service>, p: 50, t: feature, s: closed
