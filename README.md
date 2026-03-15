@@ -27,7 +27,7 @@
 ## Features
   
 - For designing your folder structures Reamake features its own scripting language with variable support, designed to strike a balance between being powerful and beginner-friendly.  
-- Subcommands for normalizing, correcting and sorting raw audio stems in record-time.
+- Subcommands for normalizing, correcting and sorting raw audio stems in record-time (not implemented yet).
   
 ---
 <div id="install"></div>
