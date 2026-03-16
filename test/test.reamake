@@ -1,0 +1,38 @@
+# there are three different datatypes in this language
+# 1: "string" (used for name variables)
+# 2: "file" (a generic file, where the extension specified in its name will generate the file with that extension)
+# variables with the datatype "file" will inherit the same extension logic as a generic file, only that the contents of the file supplied in the variables section will be added to the file generated
+# 3: "folder" (a generic folder)
+# variables with the datatype "folder" will inherit the contents of the folder specified in the variables section
+
+variables [
+    # built-in: date
+    client: string = "CoolBoi420"
+    project: string = "My cool song"
+    service: string = "Mix"
+    rpp: file = "/Users/simondanielsson/dev/rust/reamake/test/test.RPP"
+    stems: folder = "/Users/simondanielsson/dev/rust/reamake/test/stems16/"
+    fruit: string = "banana"
+]
+
+settings [
+    format_names: false
+    format_date: "%d-%m-%Y"
+]
+
+hierarchy [
+    folder "[$service] $client - $project ($date)" {
+        folder "project" {
+            rpp "$project $date.RPP"
+            file "$fruit notes.md"
+        }
+
+        stems "stems" {
+            file "todo.md"
+        }
+
+        folder "export" {
+            folder "$fruit drafts" {}
+        }
+    }
+]

@@ -22,9 +22,10 @@ pub fn gen_init(args: Arguments) -> io::Result<()> {
     file.write_all(INIT_REAMAKE.as_bytes())?;
 
     println!(
-        "Initialized reamake file has been gen_initd into:\n{}",
+        "An initialized reamake file has been generated in directory:\n{}",
         target.display()
     );
 
     Ok(())
 }
+
