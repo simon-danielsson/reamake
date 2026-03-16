@@ -1,35 +1,42 @@
-[variables]
+# there are only three different datatypes to keep track of:
 
-client: Cool Artist Name
-project: Funk Song
-service: Mix
+# 1: <string> - used for name variables
 
-[sources]
+# 2: <file> - an empty generic file, where the extension in its name will specify the extension of the file once generated
+# variables with the datatype <file> will inherit the same extension logic as a generic file, only that the contents of the file variable path supplied will be the contents of the file generated
 
-rpp: /Users/user/Music/rpp-templates/mix_2026.RPP
+# 3: <folder> - a generic folder
+# variables with the datatype <folder> will inherit the contents of the folder specified in the variables section
 
-[settings]
+variables [
+    # built-in: date
+    client: string = "client"
+    project: string = "project"
+    service: string = "mix"
+    rpp: file = "/Users/usr/music/templates/mix.RPP"
+    stems: folder = "/Users/usr/Downloads/stems_from_client/"
+    # you can create any variables you want
+    fruit: string = "banana"
+]
 
-format_names: false
-format_date: EU
+settings [
+    format_names: false
+    format_date: "%d-%m-%Y"
+]
 
-[hierarchy]
+hierarchy [
+    folder "[$service] $client - $project, $date" {
+        folder "project" {
+            rpp "$project $date.RPP"
+            file "$fruit notes.md"
+        }
 
-folder "$date, [$service] $client - $project" {
-    folder "project" {
-        rpp "$project $date"
-            file "notes.md"
-    }
-    folder "stems" {
-        folder "processed" {}
-        folder "raw" {
+        stems "stems" {
             file "todo.md"
         }
-    }
-    folder "export" {
-        folder "drafts" {
-            folder "v1" {}
+
+        folder "export" {
+            folder "$fruit drafts" {}
         }
     }
-    file "deadlines $project.md"
-}
+]

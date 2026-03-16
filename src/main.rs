@@ -188,7 +188,7 @@ fn materialize_variable_use(
     let decl = b.variables.get(var_name).ok_or_else(|| {
         io::Error::new(
             io::ErrorKind::InvalidInput,
-            format!("unknown variable used in hierarchy: {var_name}"),
+            format!("Unknown variable used in hierarchy: {var_name}"),
         )
     })?;
 
@@ -197,7 +197,7 @@ fn materialize_variable_use(
             return Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
                 format!(
-                "string variable '{var_name}' cannot be used as a hierarchy node"
+                "String variable '{var_name}' cannot be used as a hierarchy node!"
             ),
             ));
         }
@@ -287,6 +287,7 @@ fn copy_dir_contents(src: &Path, dst: &Path) -> io::Result<()> {
 
     Ok(())
 }
+
 fn interpolate(input: &str, b: &ProjectBlock) -> String {
     let mut out = input.to_string();
 
@@ -305,6 +306,7 @@ fn interpolate(input: &str, b: &ProjectBlock) -> String {
 
     out
 }
+
 pub fn generate_structure(
     root: impl AsRef<Path>,
     nodes: &[HierarchyNode],

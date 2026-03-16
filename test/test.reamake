@@ -7,16 +7,16 @@
 
 variables [
     # built-in: date
-    client: string = "CoolBoi420"
-    project: string = "My cool song"
-    service: string = "Mix"
+    client: string = "client"
+    project: string = "project"
+    service: string = "mix"
     rpp: file = "/Users/simondanielsson/dev/rust/reamake/test/test.RPP"
-    stems: folder = "/Users/simondanielsson/dev/rust/reamake/test/stems16/"
+    stems: folder = "/Users/simondanielsson/dev/rust/reamake/test/stems/"
     fruit: string = "banana"
 ]
 
 settings [
-    format_names: false
+    format_names: true
     format_date: "%d-%m-%Y"
 ]
 

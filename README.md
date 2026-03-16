@@ -1,7 +1,3 @@
-> [!IMPORTANT]  
-> This program is still a work in progress.
-> Nothing has been fully implemented or tested yet.
-> Come back at a later date!
 
 <p align="center">
     <img src="media/logo.png" alt="reamake" width="200"/>
@@ -31,7 +27,7 @@
 
 ## Features
   
-- For designing your folder structures Reamake features its own scripting language with support for custom variables, striking a balance between flexibility and ease-of-use.  
+- For designing your folder structures Reamake features its own scripting language with support for custom variables, striking a balance between flexibility and ease-of-use. [Neovim plugin for syntax highlighting and such is available here](https://github.com/simon-danielsson/reamake.nvim).
 - Subcommands for normalizing, correcting and sorting raw audio stems in record-time (not implemented yet).
   
 ---
@@ -69,9 +65,9 @@ project name and service name. If you'd like to override one or more of
 these fields you can do so through the cli:  
   
 ``` terminal
-reamake ... -c <client name override>
-reamake ... -p <project name override>
-reamake ... -s <service name override>
+reamake ... -c <client var override>
+reamake ... -p <project var override>
+reamake ... -s <service var override>
 ```
   
 Display help and version information:  
@@ -82,67 +78,53 @@ reamake help
   
 ### Template file (.reamake)
   
-The core workflow of Reamake is feeding the CLI with reamake template files. A reamake file (file with the .reamake extension) is divided up into four sections: variables, sources, settings and hierarchy. This template format accepts comments (prefixed with '#'), but comment lines should be separate from the parameter lines since doing otherwise could lead to undefined behaviour.  
-  
-#### Section - variables
-  
-In this section you can set variables for the names of the folder hierarchy. These can be set in the template or the CLI - my advice is that you keep fallback values here and override them explicitly in the CLI!
-  
-#### Section - sources
-  
-Here you will set which RPP file you want to use as your project template (as an absolute path). If no RPP path is assigned here, a new empty RPP project will be generated for you.
-  
-#### Section - settings
-  
-`format_names` : < true | false > format all variable, file and folder names to kebab-case (if omitted, defaults to false).  
-`format_date` : < US | EU | ISO > date formatting (if omitted, defaults to EU).  
-  
-#### Section - hierarchy
-  
-Here is where you set the folder hierarchy using a custom hierarchy "language" developed especially for Reamake! The language itself is self-explanatory, the only keywords to keep track of are "folder"(a folder), "file"(a file) and "rpp"(the template project you've got set in the section "sources"). Every keyword takes a name within double-qoutes directly after it. When naming files you can add an extension as part of the name, and the file will be generated with that extension.  
-  
-You can (and should) be making use of variables, since these make a template more general and flexible. But it's not obligatory to use variables - for example, if you don't want to use the "service" or "date" variable you can simply omit them when naming your hierarchy.  
+The core workflow of Reamake consists of feeding the CLI with reamake template files. A reamake file (file with the .reamake extension) is divided up into four sections: variables, sources, settings and hierarchy. This template format accepts comments (prefixed with '#'), but comment lines should be separate from the parameter lines since doing otherwise could lead to undefined behaviour.  
   
 #### Full example
   
 ``` conf
-[variables]
+# there are only three different datatypes to keep track of:
 
-client: Cool Artist Name
-project: Funk Song
-service: Mix
+# 1: <string> - used for name variables
 
-[sources]
+# 2: <file> - an empty generic file, where the extension in its name will specify the extension of the file once generated
+# variables with the datatype <file> will inherit the same extension logic as a generic file, only that the contents of the file variable path supplied will be the contents of the file generated
 
-rpp: /Users/user/Music/rpp-templates/mix_2026.RPP
+# 3: <folder> - a generic folder
+# variables with the datatype <folder> will inherit the contents of the folder specified in the variables section
 
-[settings]
+variables [
+    # built-in: date
+    client: string = "client"
+    project: string = "project"
+    service: string = "mix"
+    rpp: file = "/Users/usr/music/templates/mix.RPP"
+    stems: folder = "/Users/usr/Downloads/stems_from_client/"
+    # you can create any variables you want
+    fruit: string = "banana"
+]
 
-format_names: false
+settings [
+    format_names: false
+    format_date: "%d-%m-%Y"
+]
 
-# US: MM-DD-YYYY, EU: DD-MM-YYYY, ISO: YYYY-MM-DD
-format_date: EU
+hierarchy [
+    folder "[$service] $client - $project, $date" {
+        folder "project" {
+            rpp "$project $date.RPP"
+            file "$fruit notes.md"
+        }
 
-[hierarchy]
-
-folder "$date, [$service] $client - $project" {
-    folder "project" {
-        rpp "$project $date"
-        file "notes.md"
-    }
-    folder "stems" {
-        folder "processed" {}
-        folder "raw" {
+        stems "stems" {
             file "todo.md"
         }
-    }
-    folder "export" {
-        folder "drafts" {
-            folder "v1" {}
+
+        folder "export" {
+            folder "$fruit drafts" {}
         }
     }
-    file "deadlines $project.md"
-}
+]
 ```
   
 ---
