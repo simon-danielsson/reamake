@@ -78,7 +78,7 @@ reamake help
   
 ### Template file (.reamake)
   
-The core workflow of Reamake consists of feeding the CLI with reamake template files. A reamake file (file with the .reamake extension) is divided up into four sections: variables, sources, settings and hierarchy. This template format accepts comments (prefixed with '#'), but comment lines should be separate from the parameter lines since doing otherwise could lead to undefined behaviour.  
+The core workflow of Reamake consists of feeding the CLI with reamake template files. A reamake file (file with the .reamake extension) is divided up into three sections: variables, settings and hierarchy. This template format accepts comments (prefixed with '#'), but comment lines should be separate from the parameter lines since doing otherwise could lead to undefined behaviour.  
   
 #### Full example
   
@@ -116,6 +116,7 @@ hierarchy [
             file "$fruit notes.md"
         }
 
+        # it's legal to add extra files/folders to a folder variable
         stems "stems" {
             file "todo.md"
         }
