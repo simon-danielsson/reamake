@@ -10,7 +10,7 @@ pub const APP_AUTH: &str = env!("CARGO_PKG_AUTHORS");
 // *brakoll - d: fix formatting of .reamake file example in readme, p: 20, t: docs, s: closed
 // *brakoll - d: fix formatting and add new details readme and help.txt, p: 20, t: docs, s: closed
 // *brakoll - d: add disclaimer that this is work in progress, p: 100, t: docs, s: closed
-// *brakoll - d: fix typo in readme, p: 10, t: docs, s: prog
+// *brakoll - d: fix typo in readme, p: 10, t: docs, s: closed
 pub fn print() {
     println!("");
     println!("{n} v{v}", n = APP_NAME, v = APP_VERS);
@@ -20,4 +20,3 @@ pub fn print() {
     println!("");
     print!("{}", HELP_CONTENTS);
 }
-
