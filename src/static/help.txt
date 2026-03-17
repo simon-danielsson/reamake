@@ -10,12 +10,17 @@ Generate folder structure from template file
 (without target dir, current directory is assumed):
 $ reamake -f <reamake template file>
 
-In your reamake template file you can set variables such as client name,
-project name and service name. If you'd like to override one or more of
-these fields you can do so through the cli:
-$ reamake ... -c <client var override>
-$ reamake ... -p <project var override>
-$ reamake ... -s <service var override>
+In your reamake template file you can set variables,
+and they can all be overridden through the CLI at your leisure.
+Just make sure that you're supplying the right kind of value!
+(e.g a folder variable override would need a filepath,
+a string variable would need a string and so on)
+$ reamake ... -var variable="value"
+$ reamake ... -v variable="value"
+$ reamake ... --var variable="value"
+
+Example:
+$ reamake -f template.reamake --var stems="/Users/usr/Downloads/stems/" --var client="New Client" --var rpp="/Users/usr/music/templates/mix.rpp"
 
 Display help and version information:
 $ reamake help

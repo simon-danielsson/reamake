@@ -1,14 +1,13 @@
-use std::{io, path::PathBuf};
+use std::{collections::HashMap, io, path::PathBuf};
 
+// *brakoll - d: support for overriding any variables that the user desires, p: 100, t: feature, s: closed
 #[derive(PartialEq, Clone)]
 pub struct Arguments {
     pub help: bool,
     pub init: bool,
     pub reamake_file_path: String,
     pub opt_target: PathBuf,
-    pub client: String,
-    pub project: String,
-    pub service: String,
+    pub overrides: HashMap<String, String>,
 }
 impl Arguments {
     fn new() -> Self {
@@ -17,9 +16,7 @@ impl Arguments {
             init: false,
             reamake_file_path: String::new(),
             opt_target: PathBuf::new(),
-            client: String::new(),
-            project: String::new(),
-            service: String::new(),
+            overrides: HashMap::new(),
         }
     }
 }
@@ -37,25 +34,13 @@ pub fn parse() -> io::Result<Arguments> {
                 a.reamake_file_path = arg.trim().to_string();
             }
 
-            "-s" => {
-                let arg = it
-                    .next()
-                    .expect("No service name was given after the \"-s\" flag.");
-                a.service = arg.trim().to_string();
-            }
-
-            "-p" => {
-                let arg = it
-                    .next()
-                    .expect("No project name was given after the \"-p\" flag.");
-                a.project = arg.trim().to_string();
-            }
-
-            "-c" => {
-                let arg = it
-                    .next()
-                    .expect("No client name was given after the \"-c\" flag.");
-                a.client = arg.trim().to_string();
+            "-var" | "--var" | "-v" => {
+                let arg = it.next().expect(
+                    "No key-value pair was given after the \"-S\" flag.",
+                );
+                // println!("{}", arg);
+                let (k, v): (String, String) = get_kv_from_var(arg);
+                a.overrides.insert(k, v);
             }
 
             "init" => {
@@ -73,4 +58,23 @@ pub fn parse() -> io::Result<Arguments> {
         }
     }
     Ok(a)
+}
+
+// --var
+fn get_kv_from_var(arg: String) -> (String, String) {
+    let mut k = String::new();
+    let mut v = String::new();
+
+    let iter = arg.split_terminator('=').into_iter();
+    for (i, field) in iter.enumerate() {
+        if i == 0 {
+            k = field.trim().to_string();
+        }
+        if i == 1 {
+            v = field.trim().to_string();
+        }
+    }
+
+    // println!("{} == {}", k, v);
+    (k, v)
 }

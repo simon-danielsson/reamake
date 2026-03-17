@@ -114,27 +114,18 @@ impl<'a> Reamake<'a> {
             block.variables.insert(var.name.clone(), var);
         }
 
-        // CLI overrides win over template variables
-        if !self.args.client.is_empty() {
-            if let Some(v) = block.variables.get_mut("client") {
-                v.value = self.args.client.clone();
+        for (name, new_value) in &self.args.overrides {
+            if let Some(v) = block.variables.get_mut(name) {
+                v.value = new_value.clone();
+            } else {
+                return Err(io::Error::new(
+                    io::ErrorKind::InvalidInput,
+                    format!(
+                        "An override was provided for unknown variable '{}'",
+                        name
+                    ),
+                ));
             }
-        }
-
-        if !self.args.project.is_empty() {
-            if let Some(v) = block.variables.get_mut("project") {
-                v.value = self.args.project.clone();
-            }
-        }
-
-        if !self.args.service.is_empty() {
-            if let Some(v) = block.variables.get_mut("service") {
-                v.value = self.args.service.clone();
-            }
-        }
-
-        if !self.args.opt_target.as_os_str().is_empty() {
-            block.opt_target = self.args.opt_target.clone();
         }
 
         Ok(block)

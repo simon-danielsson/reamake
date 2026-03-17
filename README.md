@@ -46,28 +46,28 @@ cargo install reamake
   
 ### CLI
   
-Generate initialized reamake template file  
-(without target dir, current directory is assumed):  
+Generate initialized reamake template file (without target dir, current directory is assumed):  
   
 ``` terminal
 reamake init <target dir>
 ```
   
-Generate folder structure from template file  
-(without target dir, current directory is assumed):  
+Generate folder structure from template file (without target dir, current directory is assumed):  
   
 ``` terminal
 reamake -f <reamake template file> <target dir>
 ```
   
-In your reamake template file you can set variables such as client name,  
-project name and service name. If you'd like to override one or more of  
-these fields you can do so through the cli:  
+In your reamake template file you can set variables,
+and they can all be overridden through the CLI at your leisure. Just make sure that the variable you're overriding exists in you reamake file and that you're supplying the right kind of value! (e.g a folder variable override would need a filepath, a string variable would need a string and so on)
   
 ``` terminal
-reamake ... -c <client var override>
-reamake ... -p <project var override>
-reamake ... -s <service var override>
+$ reamake ... -var variable="value"
+$ reamake ... -v variable="value"
+$ reamake ... --var variable="value"
+
+Example:
+$ reamake -f template.reamake --var stems="/Users/usr/Downloads/stems/" --var client="New Client" --var rpp="/Users/usr/music/templates/mix.rpp"
 ```
   
 Display help and version information:  
