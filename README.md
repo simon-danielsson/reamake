@@ -66,10 +66,12 @@ reamake sort <target dir>
 Generate folder structure from template file (without target dir, current directory is assumed):  
   
 ``` terminal
+reamake gen <reamake template file> <target dir>
+reamake generate <reamake template file> <target dir>
 reamake build <reamake template file> <target dir>
 ```
   
-**Subcommand: help**
+**Subcommand: help**  
 Display help and version information:  
   
 ``` terminal
@@ -86,7 +88,7 @@ reamake ... -v variable="value"
 reamake ... --var variable="value"
 
 Example:
-reamake -f template.reamake --var stems="/Users/usr/Downloads/stems/" --var client="New Client" --var rpp="/Users/usr/music/templates/mix.rpp"
+reamake build template.reamake --var stems="/Users/usr/Downloads/stems/" --var client="New Client" --var rpp="/Users/usr/music/templates/mix.rpp"
 ```
   
 ### Template file (.reamake)
