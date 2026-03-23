@@ -20,6 +20,13 @@ $ reamake gen <reamake template file> <target dir>
 $ reamake generate <reamake template file> <target dir>
 $ reamake build <reamake template file> <target dir>
 
+Subcommand: norm
+Normalize stems, as well as check for "fake stereo" (i.e. the file is stereo but the
+source is mono) and fold stems into mono files accordingly (without target dir, current directory is assumed).
+Reamake will not process files that do not have the extensions: wav, mp3, flac, aif, aiff and m4v.
+Proceed with caution and be sure to keep backups of all your stems!
+$ reamake norm <target dir>
+
 Subcommand: help
 Display help and version information:
 $ reamake help

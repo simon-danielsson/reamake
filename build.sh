@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cargo build --release
-cargo run --release -- sort ./stems
+cargo run --release -- norm ./stems/sub
 
 # /Users/simondanielsson/dev/rust/reamake/target/release/reamake sort ./test/stems/
 # /Users/simondanielsson/dev/rust/reamake/target/release/reamake sort

@@ -14,12 +14,14 @@ mod parser;
 mod subcommands;
 mod utils;
 
+pub const AUDIO_EXTENSIONS: &[&str] = &["wav", "mp3", "flac", "aif", "aiff", "m4v"];
+
 // *brakoll - d: give the user power to add any variables they want to their folder structure (with keywords to show if it's a name a file or a folder), p: 0, t: feature, s: closed
 // *brakoll - d: add logic so that if a reamake file has not been added to the template file or if the path is invalid generate a fallback, p: 0, t: fix, s: closed
 fn main() -> io::Result<()> {
     // *brakoll - d: implement flag -f <file.reamake>, p: 60, t: feature, s: closed
     // *brakoll - d: implement flag -c <client> flag -p <project> and flag -s <service>, p: 50, t: feature, s: closed
-    // *brakoll - d: subcommand to normalize and fold audio files in target directory, p: 20, t: feature, s: open
+    // *brakoll - d: subcommand to normalize and fold audio files in target directory, p: 20, t: feature, s: closed
     // *brakoll - d: the def operation will be to create project in cd but add arg for a target directory as well (automatically recognized as a path by the arg parser), p: 100, t: feature, s: closed
     // === get args ===
     let args = utils::args::parse()?;
@@ -321,4 +323,3 @@ pub fn generate_structure(
 
     Ok(())
 }
-

@@ -7,7 +7,10 @@ use std::{
 
 const SORT_TERMS: &str = include_str!("../static/sort-terms.txt");
 
-use crate::utils::{args::Arguments, messages};
+use crate::{
+    AUDIO_EXTENSIONS,
+    utils::{args::Arguments, messages},
+};
 
 pub fn run(args: &Arguments) -> io::Result<()> {
     // init
@@ -169,14 +172,11 @@ impl Sorter {
         for entry in paths {
             let entry = entry?;
             let path = entry.path();
-            match path.extension().and_then(|ext| ext.to_str()) {
-                Some("wav") => self.audio_files.push(path),
-                Some("mp3") => self.audio_files.push(path),
-                Some("flac") => self.audio_files.push(path),
-                Some("aif") => self.audio_files.push(path),
-                Some("aiff") => self.audio_files.push(path),
-                Some("m4v") => self.audio_files.push(path),
-                _ => {}
+
+            if let Some(ext) = path.extension().and_then(|ext| ext.to_str()) {
+                if AUDIO_EXTENSIONS.contains(&ext.to_lowercase().as_str()) {
+                    self.audio_files.push(path);
+                }
             }
         }
         Ok(())

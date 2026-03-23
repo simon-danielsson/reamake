@@ -54,9 +54,7 @@ reamake init <target dir>
 ```
   
 **Subcommand: sort**  
-Sort stems automatically into sub-directories in target dir (without target dir, current directory is assumed).  
-Reamake will not sort files that do not have the extensions: wav, mp3, flac, aif, aiff and m4v.  
-Proceed with caution and be sure to keep backups of all your stems!  
+Sort stems automatically into sub-directories in target dir (without target dir, current directory is assumed). Reamake will not sort files that do not have the extensions: wav, mp3, flac, aif, aiff and m4v. Proceed with caution and be sure to keep backups of all your stems!  
   
 ``` terminal
 reamake sort <target dir>
@@ -71,6 +69,13 @@ reamake generate <reamake template file> <target dir>
 reamake build <reamake template file> <target dir>
 ```
   
+**Subcommand: norm**  
+Normalize stems, as well as check for "fake stereo" (i.e. the file is stereo but the source is mono) and fold stems into mono files accordingly (without target dir, current directory is assumed). Reamake will not process files that do not have the extensions: wav, mp3, flac, aif, aiff and m4v. Proceed with caution and be sure to keep backups of all your stems!  
+  
+``` terminal
+reamake norm <target dir>
+```
+  
 **Subcommand: help**  
 Display help and version information:  
   
@@ -79,8 +84,7 @@ reamake help
 ```
   
 **Flag: -var | -v | --var**  
-In your reamake template file you can set variables,
-and they can all be overridden through the CLI at your leisure. Just make sure that the variable you're overriding exists in you reamake file and that you're supplying the right kind of value! (e.g a folder variable override would need a filepath, a string variable would need a string and so on)
+In your reamake template file you can set variables, and they can all be overridden through the CLI at your leisure. Just make sure that the variable you're overriding exists in you reamake file and that you're supplying the right kind of value! (e.g a folder variable override would need a filepath, a string variable would need a string and so on)  
   
 ``` terminal
 reamake ... -var variable="value"
