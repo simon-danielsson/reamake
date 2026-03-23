@@ -12,6 +12,7 @@ pub const APP_AUTH: &str = env!("CARGO_PKG_AUTHORS");
 // *brakoll - d: add disclaimer that this is work in progress, p: 100, t: docs, s: closed
 // *brakoll - d: fix typo in readme, p: 10, t: docs, s: closed
 // *brakoll - d: add new deps to readme, p: , t: docs, s: closed
+// *brakoll - d: add unix warning in readme, p: , t: docs, s: closed
 pub fn print() {
     println!("");
     println!("{n} v{v}", n = APP_NAME, v = APP_VERS);

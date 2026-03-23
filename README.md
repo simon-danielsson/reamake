@@ -31,6 +31,9 @@
 - Normalize to -1dBFS and fold 'fake stereo' audio tracks to mono in bulk.
 - For designing your folder structures Reamake features its own scripting language with support for custom variables, striking a balance between flexibility and ease-of-use. [Neovim plugin for syntax highlighting and such is available here](https://github.com/simon-danielsson/reamake.nvim).
   
+> [!IMPORTANT]  
+> Reamake only supports **Unix** systems.  
+  
 ---
 <div id="install"></div>
 
