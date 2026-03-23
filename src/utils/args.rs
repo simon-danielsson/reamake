@@ -1,10 +1,11 @@
 use std::{collections::HashMap, io, path::PathBuf};
 
 // *brakoll - d: support for overriding any variables that the user desires, p: 100, t: feature, s: closed
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub struct Arguments {
     pub help: bool,
     pub init: bool,
+    pub sort: bool,
     pub reamake_file_path: String,
     pub opt_target: PathBuf,
     pub overrides: HashMap<String, String>,
@@ -14,6 +15,7 @@ impl Arguments {
         Self {
             help: false,
             init: false,
+            sort: false,
             reamake_file_path: String::new(),
             opt_target: PathBuf::new(),
             overrides: HashMap::new(),
@@ -51,8 +53,12 @@ pub fn parse() -> io::Result<Arguments> {
                 a.help = true;
             }
 
+            "sort" => {
+                a.sort = true;
+            }
+
             other => {
-                a.opt_target = PathBuf::from(other);
+                a.opt_target = PathBuf::from(other.trim());
                 break;
             }
         }
@@ -75,6 +81,5 @@ fn get_kv_from_var(arg: String) -> (String, String) {
         }
     }
 
-    // println!("{} == {}", k, v);
     (k, v)
 }

@@ -27,8 +27,8 @@
 
 ## Features
   
+- Sort stems into sub-directories automatically!
 - For designing your folder structures Reamake features its own scripting language with support for custom variables, striking a balance between flexibility and ease-of-use. [Neovim plugin for syntax highlighting and such is available here](https://github.com/simon-danielsson/reamake.nvim).
-- Subcommands for normalizing, correcting and sorting raw audio stems in record-time (not implemented yet).
   
 ---
 <div id="install"></div>
@@ -50,6 +50,14 @@ Generate initialized reamake template file (without target dir, current director
   
 ``` terminal
 reamake init <target dir>
+```
+  
+Sort stems automatically into sub-directories in target dir (without target dir, current directory is assumed).  
+Reamake will not sort files that do not have the extensions: wav, mp3, flac, aif, aiff and m4v.  
+Proceed with caution and be sure to keep backups of all your stems!  
+  
+``` terminal
+reamake sort <target dir>
 ```
   
 Generate folder structure from template file (without target dir, current directory is assumed):  

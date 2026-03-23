@@ -6,6 +6,11 @@ Generate initialized reamake template file
 (without target dir, current directory is assumed):
 $ reamake init <optional target dir>
 
+Sort stems automatically into sub-directories in target dir (without target dir, current directory is assumed).
+Reamake will not sort files that do not have the extensions: wav, mp3, flac, aif, aiff and m4v.
+Proceed with caution and be sure to keep backups of all your stems!
+$ reamake sort <target dir>
+
 Generate folder structure from template file
 (without target dir, current directory is assumed):
 $ reamake -f <reamake template file>

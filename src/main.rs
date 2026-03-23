@@ -23,6 +23,12 @@ fn main() -> io::Result<()> {
     // === get args ===
     let args = utils::args::parse()?;
 
+    // *brakoll - d: add stem sorting subcommand, p: 10, t: feat, s: closed
+    if args.sort {
+        subcommands::sort::run(&args)?;
+        return Ok(());
+    }
+
     if args.init {
         subcommands::init::gen_init(args)?;
         return Ok(());
