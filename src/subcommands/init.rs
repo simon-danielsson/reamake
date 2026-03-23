@@ -4,7 +4,7 @@ use std::{
     io::{self, Write},
 };
 
-use crate::utils::args::Arguments;
+use crate::utils::{args::Arguments, messages};
 
 const INIT_REAMAKE: &str = include_str!("../static/init/init.reamake");
 
@@ -21,11 +21,7 @@ pub fn gen_init(args: Arguments) -> io::Result<()> {
     let mut file = File::create(&target)?;
     file.write_all(INIT_REAMAKE.as_bytes())?;
 
-    println!(
-        "An initialized reamake file has been generated in directory:\n{}",
-        target.display()
-    );
+    println!("{}\n{}", messages::INIT_FILE_GENERATED, target.display());
 
     Ok(())
 }
-

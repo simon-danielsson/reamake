@@ -6,6 +6,7 @@ pub struct Arguments {
     pub help: bool,
     pub init: bool,
     pub sort: bool,
+    pub norm: bool,
     pub reamake_file_path: String,
     pub opt_target: PathBuf,
     pub overrides: HashMap<String, String>,
@@ -16,6 +17,7 @@ impl Arguments {
             help: false,
             init: false,
             sort: false,
+            norm: false,
             reamake_file_path: String::new(),
             opt_target: PathBuf::new(),
             overrides: HashMap::new(),
@@ -44,6 +46,10 @@ pub fn parse() -> io::Result<Arguments> {
                 // println!("{}", arg);
                 let (k, v): (String, String) = get_kv_from_var(arg);
                 a.overrides.insert(k, v);
+            }
+
+            "norm" => {
+                a.norm = true;
             }
 
             "init" => {
@@ -84,3 +90,4 @@ fn get_kv_from_var(arg: String) -> (String, String) {
 
     (k, v)
 }
+

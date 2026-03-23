@@ -8,6 +8,7 @@ use std::{
 
 use crate::parser::{HierarchyNode, Parser, Settings, VarType, VariableDecl, lex};
 use crate::utils::args::Arguments;
+use crate::utils::messages;
 
 mod parser;
 mod subcommands;
@@ -29,6 +30,11 @@ fn main() -> io::Result<()> {
         return Ok(());
     }
 
+    if args.norm {
+        subcommands::norm::run(&args)?;
+        return Ok(());
+    }
+
     if args.init {
         subcommands::init::gen_init(args)?;
         return Ok(());
@@ -41,14 +47,11 @@ fn main() -> io::Result<()> {
 
     // *brakoll - d: add extra check for .reamake extension before parsing reamake file, p: 100, t: fix, s: closed
     if args.reamake_file_path.is_empty() {
-        eprintln!(
-        "You didn't assign a path to a reamake file!\nUse the 'help' subcommand if you're feeling lost."
-    );
+        eprintln!("{}", messages::NO_PATH_ASSIGNED);
+
         return Ok(());
     } else if !args.reamake_file_path.trim().ends_with(".reamake") {
-        eprintln!(
-        "Your assigned reamake file does not use the .reamake extension!\nUse the 'help' subcommand if you're feeling lost."
-    );
+        eprintln!("{}", messages::NO_PATH_ASSIGNED);
         return Ok(());
     }
 
@@ -261,7 +264,7 @@ fn copy_dir_contents(src: &Path, dst: &Path) -> io::Result<()> {
     if !src.is_dir() {
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
-            format!("source is not a directory: {}", src.display()),
+            format!("Source is not a directory: {}", src.display()),
         ));
     }
 
@@ -318,3 +321,4 @@ pub fn generate_structure(
 
     Ok(())
 }
+

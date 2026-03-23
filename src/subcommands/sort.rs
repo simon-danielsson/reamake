@@ -7,7 +7,7 @@ use std::{
 
 const SORT_TERMS: &str = include_str!("../static/sort-terms.txt");
 
-use crate::utils::args::Arguments;
+use crate::utils::{args::Arguments, messages};
 
 pub fn run(args: &Arguments) -> io::Result<()> {
     // init
@@ -21,7 +21,7 @@ pub fn run(args: &Arguments) -> io::Result<()> {
     s.scan()?;
 
     if s.audio_files.is_empty() {
-        println!("No audio files were found in chosen directory!");
+        println!("{}", messages::NO_AUDIO_FOUND);
         return Ok(());
     }
 
@@ -30,12 +30,6 @@ pub fn run(args: &Arguments) -> io::Result<()> {
     s.match_files()?;
 
     s.build()?;
-
-    // for g in s.sort_groups {
-    //     println!("{:?}", g.name);
-    //     println!("{:?}", g.terms);
-    //     println!("{:?}", g.audio_files);
-    // }
 
     Ok(())
 }
@@ -127,14 +121,10 @@ impl Sorter {
         for sg in &self.sort_groups {
             let folder = self.dir.join(sg.name.as_str());
             fs::create_dir(&folder)?;
-            println!("{:?}", folder);
             for audio_file in &sg.audio_files {
                 let name = audio_file.file_name().unwrap();
-                println!("name: {:?}", name);
                 let from = PathBuf::from(audio_file);
-                println!("from: {:?}", from);
                 let to = folder.join(name);
-                println!("to: {:?}", to);
                 fs::rename(&from, &to)?;
             }
         }
