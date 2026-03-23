@@ -153,6 +153,8 @@ hierarchy [
 ## Dependencies
   
 + [chrono](https://github.com/chronotope/chrono)  
++ [hound](https://github.com/ruuda/hound)  
++ [symphonia](https://github.com/pdeljanov/Symphonia)  
   
 ---
 <div id="license"></div>

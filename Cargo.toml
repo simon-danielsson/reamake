@@ -13,5 +13,4 @@ rust-version = "1.94.0"
 [dependencies]
 chrono = "0.4.44"
 hound = "3.5.1"
-indicatif = "0.18.4"
 symphonia = "0.5.5"
