@@ -27,9 +27,10 @@ pub fn parse() -> io::Result<Arguments> {
     let mut a = Arguments::new();
     let mut it = std::env::args().skip(1); // skip program name
 
+    // *brakoll - d: make hierarchy generation its own subc instead of a flag, p: 0, t: feature, s: closed
     while let Some(arg) = it.next() {
         match arg.as_str() {
-            "-f" => {
+            "gen" | "generate" | "build" => {
                 let arg = it.next().expect(
                     "No reamake file path was given after the \"-f\" flag.",
                 );

@@ -46,12 +46,14 @@ cargo install reamake
   
 ### CLI
   
+**Subcommand: init**  
 Generate initialized reamake template file (without target dir, current directory is assumed):  
   
 ``` terminal
 reamake init <target dir>
 ```
   
+**Subcommand: sort**  
 Sort stems automatically into sub-directories in target dir (without target dir, current directory is assumed).  
 Reamake will not sort files that do not have the extensions: wav, mp3, flac, aif, aiff and m4v.  
 Proceed with caution and be sure to keep backups of all your stems!  
@@ -60,28 +62,31 @@ Proceed with caution and be sure to keep backups of all your stems!
 reamake sort <target dir>
 ```
   
+**Subcommand: gen | generate | build**  
 Generate folder structure from template file (without target dir, current directory is assumed):  
   
 ``` terminal
-reamake -f <reamake template file> <target dir>
+reamake build <reamake template file> <target dir>
 ```
   
-In your reamake template file you can set variables,
-and they can all be overridden through the CLI at your leisure. Just make sure that the variable you're overriding exists in you reamake file and that you're supplying the right kind of value! (e.g a folder variable override would need a filepath, a string variable would need a string and so on)
-  
-``` terminal
-$ reamake ... -var variable="value"
-$ reamake ... -v variable="value"
-$ reamake ... --var variable="value"
-
-Example:
-$ reamake -f template.reamake --var stems="/Users/usr/Downloads/stems/" --var client="New Client" --var rpp="/Users/usr/music/templates/mix.rpp"
-```
-  
+**Subcommand: help**
 Display help and version information:  
   
 ``` terminal
 reamake help
+```
+  
+**Flag: -var | -v | --var**  
+In your reamake template file you can set variables,
+and they can all be overridden through the CLI at your leisure. Just make sure that the variable you're overriding exists in you reamake file and that you're supplying the right kind of value! (e.g a folder variable override would need a filepath, a string variable would need a string and so on)
+  
+``` terminal
+reamake ... -var variable="value"
+reamake ... -v variable="value"
+reamake ... --var variable="value"
+
+Example:
+reamake -f template.reamake --var stems="/Users/usr/Downloads/stems/" --var client="New Client" --var rpp="/Users/usr/music/templates/mix.rpp"
 ```
   
 ### Template file (.reamake)
